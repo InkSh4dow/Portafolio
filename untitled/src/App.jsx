@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUser, FaFolderOpen, FaEnvelope } from 'react-icons/fa'
+import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea } from 'react-icons/si'
 
 const nombresSeccion = {
   inicio: 'Inicio',
@@ -16,6 +17,20 @@ const bordesSeccion = {
   proyectos: 'borde-verde',
   contacto: 'borde-blanco'
 };
+
+const lenguajes = [
+  { nombre: 'HTML', icono: <SiHtml5 /> },
+  { nombre: 'CSS', icono: <SiCss3 /> },
+  { nombre: 'JS', icono: <SiJavascript /> },
+  { nombre: 'Kotlin', icono: <SiKotlin /> },
+];
+
+const herramientas = [
+  { nombre: 'Git', icono: <SiGit /> },
+  { nombre: 'GitHub', icono: <SiGithub /> },
+  { nombre: 'Android Studio', icono: <SiAndroidstudio /> },
+  { nombre: 'IntelliJ IDEA', icono: <SiIntellijidea /> },
+];
 
 function App() {
   const [activo, setActivo] = useState('proyectos')
@@ -38,8 +53,36 @@ function App() {
       <>
         {/* <h2>🧑‍💻 Acerca de mí</h2> */}
         <p>Soy un estudiante apasionado por el desarrollo de aplicaciones móviles y web. Siempre buscando aprender nuevas tecnologías.</p>
-        <h3>Tecnologías que uso:</h3>
-        <p>Kotlin, React, Node.js, Firebase, SQL</p>
+
+        <div className="contenedor-marquesinas">
+          <div>
+            <h3 className="titulo-marquesina">Lenguajes</h3>
+            <div className="tecnologias-marquesina">
+              <div className="marquesina-track">
+                {lenguajes.map((tech) => (
+                  <div className="item-tecnologia" key={tech.nombre}>
+                    {tech.icono}
+                    <span>{tech.nombre}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
+            <div className="tecnologias-marquesina marquesina-inversa">
+              <div className="marquesina-track">
+                {herramientas.map((tech) => (
+                  <div className="item-tecnologia" key={tech.nombre}>
+                    {tech.icono}
+                    <span>{tech.nombre}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button className="boton-primario">Descargar CV</button>
       </>
     ),
@@ -102,25 +145,25 @@ function App() {
       <nav className="navegacion-inferior">
         <div className="navegacion-inferior-interna">
           <button
-            className={`item-navegacion${activo === 'inicio' ? ' activo' : ''}`}
+            className={`item-navegacion ${activo === 'inicio' ? ' activo' : ''}`}
             onClick={() => manejarClick('inicio')}
           >
             <span className="icono-navegacion"><AiFillHome /></span>
           </button>
           <button
-            className={`item-navegacion item-acerca${activo === 'acerca' ? ' activo' : ''}`}
+            className={`item-navegacion item-acerca ${activo === 'acerca' ? ' activo' : ''}`}
             onClick={() => manejarClick('acerca')}
           >
             <span className="icono-navegacion"><FaUser /></span>
           </button>
           <button
-            className={`item-navegacion${activo === 'proyectos' ? ' activo' : ''}`}
+            className={`item-navegacion ${activo === 'proyectos' ? ' activo' : ''}`}
             onClick={() => manejarClick('proyectos')}
           >
             <span className="icono-navegacion"><FaFolderOpen /></span>
           </button>
           <button
-            className={`item-navegacion${
+            className={`item-navegacion ${
               activo === 'contacto' ? ' activo' : ''
             }`}
             onClick={() => manejarClick('contacto')}

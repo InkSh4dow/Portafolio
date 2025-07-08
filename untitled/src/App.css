@@ -32,13 +32,13 @@
 
 @keyframes rgb-border-glow {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
   50% {
     background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
 }
 
@@ -124,6 +124,76 @@
 .boton-primario:hover {
   background-color: #a36ef4;
 }
+
+.contenedor-marquesinas {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.titulo-marquesina {
+  font-size: 1.1rem;
+  color: #bb86fc;
+  text-align: left;
+  margin: 0 0 0.5rem 0;
+  padding-left: 1rem;
+}
+
+.tecnologias-marquesina {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); */
+}
+
+.marquesina-track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  /* animation: scroll-horizontal 45s linear infinite; */
+}
+
+.item-tecnologia {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: #1e1e1e;
+  border-radius: 12px;
+  margin: 0 0.75rem;
+  font-size: 1.1rem;
+  color: #c0c0c0;
+}
+
+.item-tecnologia svg {
+  font-size: 1.6rem;
+  color: #bb86fc;
+}
+
+/* @keyframes scroll-horizontal {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquesina-inversa .marquesina-track {
+  animation-name: scroll-horizontal-reverse;
+}
+
+@keyframes scroll-horizontal-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+} */
 
 .grid-proyectos {
   display: flex;
