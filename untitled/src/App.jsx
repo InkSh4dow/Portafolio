@@ -155,18 +155,21 @@ function App() {
             onClick={() => manejarClick('inicio')}
           >
             <span className="icono-navegacion"><AiFillHome /></span>
+            <span className="etiqueta-navegacion">Inicio</span>
           </button>
           <button
             className={`item-navegacion item-acerca ${activo === 'acerca' ? ' activo' : ''}`}
             onClick={() => manejarClick('acerca')}
           >
             <span className="icono-navegacion"><FaUser /></span>
+            <span className="etiqueta-navegacion">Acerca</span>
           </button>
           <button
             className={`item-navegacion ${activo === 'proyectos' ? ' activo' : ''}`}
             onClick={() => manejarClick('proyectos')}
           >
             <span className="icono-navegacion"><FaFolderOpen /></span>
+            <span className="etiqueta-navegacion">Proyectos</span>
           </button>
           <button
             className={`item-navegacion ${
@@ -175,6 +178,7 @@ function App() {
             onClick={() => manejarClick('contacto')}
           >
             <span className="icono-navegacion"><FaEnvelope /></span>
+            <span className="etiqueta-navegacion">Contacto</span>
           </button>
         </div>
       </nav>
