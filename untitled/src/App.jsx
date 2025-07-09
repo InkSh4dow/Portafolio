@@ -19,17 +19,17 @@ const bordesSeccion = {
 };
 
 const lenguajes = [
-  { nombre: 'HTML', icono: <SiHtml5 /> },
-  { nombre: 'CSS', icono: <SiCss3 /> },
-  { nombre: 'JS', icono: <SiJavascript /> },
-  { nombre: 'Kotlin', icono: <SiKotlin /> },
+    { nombre: 'HTML', icono: <SiHtml5 />, className: 'color-html' },
+  { nombre: 'CSS', icono: <SiCss3 />, className: 'color-css' },
+  { nombre: 'JS', icono: <SiJavascript />, className: 'color-js' },
+  { nombre: 'Kotlin', icono: <SiKotlin />, className: 'color-kotlin' },
 ];
 
 const herramientas = [
-  { nombre: 'Git', icono: <SiGit /> },
-  { nombre: 'GitHub', icono: <SiGithub /> },
-  { nombre: 'Android Studio', icono: <SiAndroidstudio /> },
-  { nombre: 'IntelliJ IDEA', icono: <SiIntellijidea /> },
+  { nombre: 'Git', icono: <SiGit />, className: 'color-git' },
+  { nombre: 'GitHub', icono: <SiGithub />, className: 'color-github' },
+  { nombre: 'Android Studio', icono: <SiAndroidstudio />, className: 'color-android-studio' },
+  { nombre: 'IntelliJ IDEA', icono: <SiIntellijidea />, className: 'color-intellij' },
 ];
 
 function App() {
@@ -59,8 +59,11 @@ function App() {
             <h3 className="titulo-marquesina">Lenguajes</h3>
             <div className="tecnologias-marquesina">
               <div className="marquesina-track">
-                {lenguajes.map((tech) => (
-                  <div className="item-tecnologia" key={tech.nombre}>
+                {[...lenguajes, ...lenguajes].map((tech, index) => (
+                  <div
+                    className={`item-tecnologia ${tech.className}`}
+                    key={`${tech.nombre}-${index}`}
+                  >
                     {tech.icono}
                     <span>{tech.nombre}</span>
                   </div>
@@ -72,8 +75,11 @@ function App() {
             <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
             <div className="tecnologias-marquesina marquesina-inversa">
               <div className="marquesina-track">
-                {herramientas.map((tech) => (
-                  <div className="item-tecnologia" key={tech.nombre}>
+                {[...herramientas, ...herramientas].map((tech, index) => (
+                  <div
+                    className={`item-tecnologia ${tech.className}`}
+                    key={`${tech.nombre}-${index}`}
+                  >
                     {tech.icono}
                     <span>{tech.nombre}</span>
                   </div>

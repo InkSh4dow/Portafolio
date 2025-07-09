@@ -130,6 +130,7 @@
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
+  width: 100%;
 }
 
 .titulo-marquesina {
@@ -144,15 +145,18 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  /* mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); */
+  -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
 }
 
 .marquesina-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 1rem;
-  /* animation: scroll-horizontal 45s linear infinite; */
+  animation: marquesina-scroll 40s linear infinite;
+}
+
+.tecnologias-marquesina.marquesina-inversa .marquesina-track {
+  animation-direction: reverse;
 }
 
 .item-tecnologia {
@@ -166,6 +170,8 @@
   margin: 0 0.75rem;
   font-size: 1.1rem;
   color: #c0c0c0;
+  opacity: 1;
+  transform: none;
 }
 
 .item-tecnologia svg {
@@ -173,27 +179,24 @@
   color: #bb86fc;
 }
 
-/* @keyframes scroll-horizontal {
+/* Icon Colors */
+.item-tecnologia.color-html svg { color: #E34F26; }
+.item-tecnologia.color-css svg { color: #1572B6; }
+.item-tecnologia.color-js svg { color: #F7DF1E; }
+.item-tecnologia.color-kotlin svg { color: #7F52FF; }
+.item-tecnologia.color-git svg { color: #F05032; }
+.item-tecnologia.color-github svg { color: #FFFFFF; }
+.item-tecnologia.color-android-studio svg { color: #3DDC84; }
+.item-tecnologia.color-intellij svg { color: #FC355A; }
+
+@keyframes marquesina-scroll {
   from {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   to {
     transform: translateX(-50%);
   }
 }
-
-.marquesina-inversa .marquesina-track {
-  animation-name: scroll-horizontal-reverse;
-}
-
-@keyframes scroll-horizontal-reverse {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-} */
 
 .grid-proyectos {
   display: flex;
