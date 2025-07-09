@@ -1,8 +1,43 @@
-import './App.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUser, FaFolderOpen, FaEnvelope } from 'react-icons/fa'
 import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea } from 'react-icons/si'
+
+// Hook personalizado para el efecto de escribir/borrar
+const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Escribiendo
+        if (currentText.length < currentWord.length) {
+          setCurrentText(currentWord.slice(0, currentText.length + 1));
+        } else {
+          // Pausa antes de borrar
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        // Borrando
+        if (currentText.length > 0) {
+          setCurrentText(currentText.slice(0, -1));
+        } else {
+          // Cambiar a la siguiente palabra
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? deleteSpeed : typeSpeed);
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentWordIndex, words, typeSpeed, deleteSpeed, pauseTime]);
+
+  return currentText;
+};
 
 const nombresSeccion = {
   inicio: 'Inicio',
@@ -35,6 +70,9 @@ const herramientas = [
 function App() {
   const [activo, setActivo] = useState('proyectos')
 
+  const nombres = ['Joseph Rodriguez', 'Desarrollador Web y Mobile'];
+  const textoAnimado = useTypewriter(nombres, 100, 50, 1500);
+
   const manejarClick = (seccion) => {
     setActivo(seccion)
   }
@@ -51,45 +89,53 @@ function App() {
     ),
     acerca: (
       <>
-        {/* <h2>🧑‍💻 Acerca de mí</h2> */}
-        <p>Soy un estudiante apasionado por el desarrollo de aplicaciones móviles y web. Siempre buscando aprender nuevas tecnologías.</p>
-
-        <div className="contenedor-marquesinas">
-          <div>
-            <h3 className="titulo-marquesina">Lenguajes</h3>
-            <div className="tecnologias-marquesina">
-              <div className="marquesina-track">
-                {[...lenguajes, ...lenguajes].map((tech, index) => (
-                  <div
-                    className={`item-tecnologia ${tech.className}`}
-                    key={`${tech.nombre}-${index}`}
-                  >
-                    {tech.icono}
-                    <span>{tech.nombre}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="contenedor-acerca">
+          <div className="columna-texto">
+            <h3 className="titulo-nombre">
+              {textoAnimado}
+              <span className="cursor-typewriter">|</span>
+            </h3>
+            <p>Desarrollador móvil y web en formación con enfoque en la creación de soluciones robustas y user-friendly. Apasionado por las tecnologías Kotlin, Android y desarrollo web, siempre busco aplicar las mejores prácticas para construir aplicaciones escalables y eficientes.</p>
+            <button className="boton-primario">Descargar CV</button>
           </div>
-          <div>
-            <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
-            <div className="tecnologias-marquesina marquesina-inversa">
-              <div className="marquesina-track">
-                {[...herramientas, ...herramientas].map((tech, index) => (
-                  <div
-                    className={`item-tecnologia ${tech.className}`}
-                    key={`${tech.nombre}-${index}`}
-                  >
-                    {tech.icono}
-                    <span>{tech.nombre}</span>
+          
+          <div className="columna-tecnologias">
+            <div className="contenedor-marquesinas">
+              <div>
+                <h3 className="titulo-marquesina">Lenguajes</h3>
+                <div className="tecnologias-marquesina">
+                  <div className="marquesina-track">
+                    {[...lenguajes, ...lenguajes].map((tech, index) => (
+                      <div
+                        className={`item-tecnologia ${tech.className}`}
+                        key={`${tech.nombre}-${index}`}
+                      >
+                        {tech.icono}
+                        <span>{tech.nombre}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
+                <div className="tecnologias-marquesina marquesina-inversa">
+                  <div className="marquesina-track">
+                    {[...herramientas, ...herramientas].map((tech, index) => (
+                      <div
+                        className={`item-tecnologia ${tech.className}`}
+                        key={`${tech.nombre}-${index}`}
+                      >
+                        {tech.icono}
+                        <span>{tech.nombre}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <button className="boton-primario">Descargar CV</button>
       </>
     ),
     proyectos: (

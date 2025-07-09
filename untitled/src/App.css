@@ -75,7 +75,7 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
-  padding: 2rem;
+  padding: 2rem 1rem;
   overflow-y: auto;
   box-sizing: border-box;
 }
@@ -86,8 +86,9 @@
 }
 
 .contenido-panel-interno {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .panel-proyectos .contenido-panel-interno {
@@ -129,64 +130,169 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 0;
   width: 100%;
 }
 
 .titulo-marquesina {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #bb86fc;
   text-align: left;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1rem 0;
   padding-left: 1rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.titulo-marquesina::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 1rem;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #bb86fc, transparent);
+  border-radius: 2px;
 }
 
 .tecnologias-marquesina {
   width: 100%;
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+  padding: 0.5rem 0;
 }
 
 .marquesina-track {
   display: flex;
   gap: 1rem;
-  animation: marquesina-scroll 40s linear infinite;
+  animation: marquesina-scroll 50s linear infinite;
+  will-change: transform;
 }
 
 .tecnologias-marquesina.marquesina-inversa .marquesina-track {
   animation-direction: reverse;
+  animation-duration: 45s;
 }
 
 .item-tecnologia {
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background: #1e1e1e;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
   border-radius: 12px;
-  margin: 0 0.75rem;
-  font-size: 1.1rem;
-  color: #c0c0c0;
-  opacity: 1;
-  transform: none;
+  margin: 0 0.5rem;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.item-tecnologia::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.item-tecnologia:hover::before {
+  left: 100%;
+}
+
+.item-tecnologia:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+}
+
+.item-tecnologia:hover svg {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.item-tecnologia:hover span {
+  color: #ffffff;
 }
 
 .item-tecnologia svg {
-  font-size: 1.6rem;
-  color: #bb86fc;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Icon Colors */
-.item-tecnologia.color-html svg { color: #E34F26; }
-.item-tecnologia.color-css svg { color: #1572B6; }
-.item-tecnologia.color-js svg { color: #F7DF1E; }
-.item-tecnologia.color-kotlin svg { color: #7F52FF; }
-.item-tecnologia.color-git svg { color: #F05032; }
-.item-tecnologia.color-github svg { color: #FFFFFF; }
-.item-tecnologia.color-android-studio svg { color: #3DDC84; }
-.item-tecnologia.color-intellij svg { color: #FC355A; }
+.item-tecnologia span {
+  transition: color 0.3s ease;
+  font-weight: 600;
+}
+
+/* Icon Colors with enhanced effects */
+.item-tecnologia.color-html svg {
+  color: #E34F26;
+}
+.item-tecnologia.color-html:hover svg {
+  color: #ff6b47;
+}
+
+.item-tecnologia.color-css svg {
+  color: #1572B6;
+}
+.item-tecnologia.color-css:hover svg {
+  color: #3d9cdb;
+}
+
+.item-tecnologia.color-js svg {
+  color: #F7DF1E;
+}
+.item-tecnologia.color-js:hover svg {
+  color: #ffec3d;
+}
+
+.item-tecnologia.color-kotlin svg {
+  color: #7F52FF;
+}
+.item-tecnologia.color-kotlin:hover svg {
+  color: #9c7aff;
+}
+
+.item-tecnologia.color-git svg {
+  color: #F05032;
+}
+.item-tecnologia.color-git:hover svg {
+  color: #ff7a5c;
+}
+
+.item-tecnologia.color-github svg {
+  color: #FFFFFF;
+}
+.item-tecnologia.color-github:hover svg {
+  color: #f0f0f0;
+}
+
+.item-tecnologia.color-android-studio svg {
+  color: #3DDC84;
+}
+.item-tecnologia.color-android-studio:hover svg {
+  color: #5effa3;
+}
+
+.item-tecnologia.color-intellij svg {
+  color: #FC355A;
+}
+.item-tecnologia.color-intellij:hover svg {
+  color: #ff5c7a;
+}
 
 @keyframes marquesina-scroll {
   from {
@@ -195,6 +301,10 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+.marquesina-track:hover {
+  animation-play-state: paused;
 }
 
 .grid-proyectos {
@@ -342,4 +452,98 @@
   opacity: 1;
   transition: max-width 0.25s ease-in 0.1s, opacity 0.2s ease-in 0.1s;
   margin-left: 0.5rem;
+}
+
+.contenedor-acerca {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  gap: 3rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.columna-texto {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.columna-tecnologias {
+  flex: 1;
+  max-width: 50%;
+  padding-left: 2rem;
+}
+
+.titulo-nombre {
+  font-size: 1.8rem;
+  color: #bb86fc;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  text-align: left;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.cursor-typewriter {
+  color: #bb86fc;
+  animation: blink 1s infinite;
+  font-weight: normal;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .contenedor-acerca {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .columna-texto,
+  .columna-tecnologias {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .columna-texto {
+    text-align: center;
+    align-items: center;
+  }
+
+  .titulo-nombre {
+    justify-content: center;
+  }
+}
+
+/* Para pantallas muy grandes */
+@media (min-width: 1400px) {
+  .contenedor-acerca {
+    max-width: 1400px;
+    gap: 4rem;
+  }
+
+  .columna-texto {
+    padding-right: 3rem;
+  }
+
+  .columna-tecnologias {
+    padding-left: 3rem;
+  }
 }
