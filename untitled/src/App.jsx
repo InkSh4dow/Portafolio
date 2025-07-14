@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Dragon from './Dragon'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUser, FaFolderOpen, FaEnvelope } from 'react-icons/fa'
-import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea } from 'react-icons/si'
+import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea, SiWebstorm, SiAffinity } from 'react-icons/si'
 
 const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -56,11 +57,16 @@ const lenguajes = [
   { nombre: 'Kotlin', icono: <SiKotlin />, className: 'color-kotlin' },
 ];
 
-const herramientas = [
+const herramientas1 = [
   { nombre: 'Git', icono: <SiGit />, className: 'color-git' },
   { nombre: 'GitHub', icono: <SiGithub />, className: 'color-github' },
+  { nombre: 'WebStorm', icono: <SiWebstorm />, className: 'color-webstorm' },
+];
+
+const herramientas2 = [
   { nombre: 'Android Studio', icono: <SiAndroidstudio />, className: 'color-android-studio' },
   { nombre: 'IntelliJ IDEA', icono: <SiIntellijidea />, className: 'color-intellij' },
+  { nombre: 'Affinity Publisher', icono: <SiAffinity />, className: 'color-affinity' },
 ];
 
 function App() {
@@ -122,7 +128,20 @@ function App() {
                   <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
                   <div className="tecnologias-marquesina marquesina-inversa">
                     <div className="marquesina-track">
-                      {[...herramientas, ...herramientas, ...herramientas].map((tech, index) => (
+                      {[...herramientas1, ...herramientas1, ...herramientas1].map((tech, index) => (
+                          <div
+                              className={`item-tecnologia ${tech.className}`}
+                              key={`${tech.nombre}-${index}`}
+                          >
+                            {tech.icono}
+                            <span>{tech.nombre}</span>
+                          </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="tecnologias-marquesina marquesina-inversa">
+                    <div className="marquesina-track">
+                      {[...herramientas2, ...herramientas2, ...herramientas2].map((tech, index) => (
                           <div
                               className={`item-tecnologia ${tech.className}`}
                               key={`${tech.nombre}-${index}`}
@@ -175,6 +194,7 @@ function App() {
 
   return (
       <>
+        <Dragon />
         <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
           <h2>{nombresSeccion[activo]}</h2>
         </div>

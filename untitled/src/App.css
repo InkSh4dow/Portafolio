@@ -309,6 +309,24 @@
   color: #ff5c7a;
 }
 
+.item-tecnologia.color-webstorm svg {
+  color: #00CDD7;
+}
+.item-tecnologia.color-webstorm:hover svg {
+  color: #33e0e8;
+}
+
+.item-tecnologia.color-affinity svg {
+  color: #1B72BE;
+}
+.item-tecnologia.color-affinity:hover svg {
+  color: #4d93d6;
+}
+
+.grupo-tecnologias .tecnologias-marquesina + .tecnologias-marquesina {
+  margin-top: 1rem;
+}
+
 @keyframes marquesina-scroll {
   from {
     transform: translateX(0);
