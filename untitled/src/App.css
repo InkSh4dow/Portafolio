@@ -126,6 +126,14 @@
   background-color: #a36ef4;
 }
 
+.botones-inicio {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .contenedor-marquesinas {
   display: flex;
   flex-direction: column;
@@ -481,6 +489,19 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+}
+
+.columna-texto p {
+  line-height: 1.4;
+  margin: 0.5rem 0;
+}
+
+.parrafo-izquierda {
+  text-align: left;
+}
+
+.parrafo-derecha {
+  text-align: right;
 }
 
 .columna-tecnologias {

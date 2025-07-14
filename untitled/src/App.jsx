@@ -78,9 +78,12 @@ function App() {
         <>
           <img src="https://via.placeholder.com/150" alt="Avatar" className="avatar" />
           <p>Desarrollador de Software y entusiasta de la tecnología.</p>
-          <button className="boton-primario" onClick={() => setActivo('proyectos')}>
-            Ver mis proyectos
-          </button>
+          <div className="botones-inicio">
+            <button className="boton-primario" onClick={() => setActivo('proyectos')}>
+              Ver mis proyectos
+            </button>
+            <button className="boton-primario">Descargar CV</button>
+          </div>
         </>
     ),
     acerca: (
@@ -91,8 +94,10 @@ function App() {
                 {textoAnimado}
                 <span className="cursor-typewriter">|</span>
               </h3>
-              <p>Desarrollador móvil y web en formación con enfoque en la creación de soluciones robustas y user-friendly. Apasionado por las tecnologías Kotlin, Android y desarrollo web, siempre busco aplicar las mejores prácticas para construir aplicaciones escalables y eficientes.</p>
-              <button className="boton-primario">Descargar CV</button>
+              <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
+              <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
+              <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
+              <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
             </div>
 
             <div className="columna-tecnologias">
