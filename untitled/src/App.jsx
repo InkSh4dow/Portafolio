@@ -194,7 +194,7 @@ function App() {
 
   return (
       <>
-        <Dragon />
+        <Dragon theme={activo} />
         <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
           <h2>{nombresSeccion[activo]}</h2>
         </div>

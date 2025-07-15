@@ -1,6 +1,29 @@
 import { useEffect, useRef } from 'react';
 
-const Dragon = () => {
+const colorPalettes = {
+  inicio: { // Rojo
+    headFill: '#ffb3b3',
+    headStroke: '#d90429',
+    gradient: ['#ff6b6b', '#ff4d4d', '#d90429', '#c1121f', '#ff6b6b'],
+  },
+  acerca: { // Azul
+    headFill: '#a7d8de',
+    headStroke: '#2a3d8f',
+    gradient: ['#5e72e4', '#007bff', '#89cff0', '#bb86fc', '#5c2c9d', '#5e72e4'],
+  },
+  proyectos: { // Verde
+    headFill: '#c1fba4',
+    headStroke: '#2e8b57',
+    gradient: ['#98ff98', '#66ff66', '#32cd32', '#2e8b57', '#98ff98'],
+  },
+  contacto: { // Blanco
+    headFill: '#f5f5f5',
+    headStroke: '#a0a0a0',
+    gradient: ['#ffffff', '#f8f9fa', '#e0e0e0', '#d3d3d3', '#ffffff'],
+  },
+};
+
+const Dragon = ({ theme = 'proyectos' }) => {
   const svgRef = useRef(null);
   const animationFrameId = useRef(null);
 
@@ -8,10 +31,16 @@ const Dragon = () => {
     const svg = svgRef.current;
     if (!svg) return;
 
+    const headFillPath = svg.querySelector('#Cabeza path:nth-child(1)');
+    const headStrokePath = svg.querySelector('#Cabeza path:nth-child(2)');
+    const wingStops = svg.querySelectorAll('#LinearGradID_1 stop');
+    const spine1Stops = svg.querySelectorAll('#LinearGradID_2 stop');
+    const spine2Stops = svg.querySelectorAll('#LinearGradID_3 stop');
+
     const screen = svg.querySelector('#screen');
     if (!screen) return;
 
-    const masterScale = 0.25; // <-- CAMBIA ESTE VALOR PARA AJUSTAR EL TAMAÑO (e.g., 0.1 es muy pequeño, 1.0 es grande)
+    const masterScale = 0.4;
 
     const xmlns = "http://www.w3.org/2000/svg";
     const xlinkns = "http://www.w3.org/1999/xlink";
@@ -56,28 +85,65 @@ const Dragon = () => {
 
       const ax = (Math.cos(3 * frm) * rad * width) / height;
       const ay = (Math.sin(4 * frm) * rad * height) / width;
-      e.x += (ax + pointer.x - e.x) / 10;
-      e.y += (ay + pointer.y - e.y) / 10;
+      e.x += (ax + pointer.x - e.x) / 20;
+      e.y += (ay + pointer.y - e.y) / 20;
 
+      // --- FÍSICA DE LOS SEGMENTOS REFACTORIZADA ---
       for (let i = 1; i < N; i++) {
         let current = elems[i];
         let previous = elems[i - 1];
 
         if (!current || !previous || !current.use) continue;
 
-        const a = Math.atan2(current.y - previous.y, current.x - previous.x);
-        current.x += (previous.x - current.x + (Math.cos(a) * (100 - i)) / 5) / 4;
-        current.y += (previous.y - current.y + (Math.sin(a) * (100 - i)) / 5) / 4;
+        // Parámetros de la física
+        const segmentSpacing = 0.1; // <-- AJUSTA ESTO. Un valor más pequeño junta los segmentos.
+        const damping = 0.25;     // Suavidad del movimiento.
+
+        const angle = Math.atan2(current.y - previous.y, current.x - previous.x);
+
+        // Fuerza que tira del segmento hacia el anterior
+        const pullX = previous.x - current.x;
+        const pullY = previous.y - current.y;
+
+        // Fuerza que empuja para mantener el espaciado
+        const pushX = Math.cos(angle) * segmentSpacing;
+        const pushY = Math.sin(angle) * segmentSpacing;
+
+        // Aplicar fuerzas con suavizado (damping)
+        current.x += (pullX + pushX) * damping;
+        current.y += (pullY + pushY) * damping;
 
         const s = ((162 + 4 * (1 - i)) / 50) * masterScale; // Aplicando el factor de escala maestro
         current.use.setAttributeNS(
           null,
           "transform",
           `translate(${(previous.x + current.x) / 2},${(previous.y + current.y) / 2}) rotate(${
-            (180 / Math.PI) * a
+            (180 / Math.PI) * angle
           }) scale(${s})`
         );
       }
+
+      // --- ANIMACIÓN DINÁMICA DE COLORES ---
+      const palette = colorPalettes[theme] || colorPalettes.proyectos;
+      const colors = palette.gradient;
+      const numColors = colors.length;
+      const timeOffset = Math.floor(frm * 150);
+
+      if (headFillPath) headFillPath.style.fill = palette.headFill;
+      if (headStrokePath) headStrokePath.style.fill = palette.headStroke;
+
+      const updateGradientStops = (stops) => {
+        stops.forEach((stop, index) => {
+          if (stop) {
+            stop.style.stopColor = colors[(timeOffset + index) % numColors];
+          }
+        });
+      };
+
+      updateGradientStops(wingStops);
+      updateGradientStops(spine1Stops);
+      updateGradientStops(spine2Stops);
+
 
       if (rad < radm) rad++;
       frm += 0.003;
@@ -115,7 +181,7 @@ const Dragon = () => {
         screen.innerHTML = '';
       }
     };
-  }, []);
+  }, [theme]);
 
   return (
     <svg
@@ -127,18 +193,19 @@ const Dragon = () => {
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
-        zIndex: 999,
-        background: 'transparent'
+        zIndex: 0,
+        background: 'transparent',
+        opacity: 0.6
       }}
     >
       <defs>
         <g id="Cabeza" transform="matrix(1, 0, 0, 1, 0, 0)">
           <path
-            style={{ fill: '#ffffff', fillOpacity: 1 }}
+            style={{ fill: '#a7d8de', fillOpacity: 1, transition: 'fill 0.5s ease' }}
             d="M-28.9,-1.1L-28.55 -1.95Q-28.1 -3.1 -27.25 -2.95L-26.7 -2.95Q-27.7 -1.65 -28.9 -1.1M-18.35,-1.8Q-15.1 -10.3 -9.6 -6.05Q-15.1 -6.2 -18.35 -1.8M-18.35,1.1Q-15.1 5.45 -9.6 5.35Q-15.1 9.55 -18.35 1.1M-26.7,2.2L-27.25 2.25Q-28.1 2.4 -28.55 1.2L-28.9 0.35Q-27.7 0.9 -26.7 2.2"
           />
           <path
-            style={{ fill: '#000000', fillOpacity: 1 }}
+            style={{ fill: '#2a3d8f', fillOpacity: 1, transition: 'fill 0.5s ease' }}
             d="M-21.05,-8.25Q-13.6 -15.95 -1.3 -12.1Q-7.85 -8.5 -5.85 -4.35Q-2.3 -4.85 10.5 0.15Q0 4.35 -5.85 3.65Q-7.85 7.75 -1.25 12.45Q-13.6 15.2 -21.05 7.5Q-29.55 4.05 -30.2 -0.35Q-29.55 -4.8 -21.05 -8.25M-26.7,-2.95L-27.25 -2.95Q-28.1 -3.1 -28.55 -1.95L-28.9 -1.1Q-27.7 -1.65 -26.7 -2.95M-9.6,-6.05Q-15.1 -10.3 -18.35 -1.8Q-15.1 -6.2 -9.6 -6.05M-9.6,5.35Q-15.1 5.45 -18.35 1.1Q-15.1 9.55 -9.6 5.35M-28.9,0.35L-28.55 1.2Q-28.1 2.4 -27.25 2.25L-26.7 2.2Q-27.7 0.9 -28.9 0.35"
           />
         </g>
@@ -153,8 +220,10 @@ const Dragon = () => {
             x2="819.2"
             y2="0"
           >
-            <stop offset="0" style={{ stopColor: '#cccccc', stopOpacity: 1 }} />
-            <stop offset="1" style={{ stopColor: '#000000', stopOpacity: 1 }} />
+            <stop offset="0%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="33%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="66%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="100%" style={{ transition: 'stop-color 0.3s ease' }} />
           </linearGradient>
           <path
             style={{ fill: 'url(#LinearGradID_1)' }}
@@ -172,8 +241,10 @@ const Dragon = () => {
             x2="819.2"
             y2="0"
           >
-            <stop offset="0" style={{ stopColor: '#cccccc', stopOpacity: 1 }} />
-            <stop offset="1" style={{ stopColor: '#333333', stopOpacity: 1 }} />
+            <stop offset="0%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="33%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="66%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="100%" style={{ transition: 'stop-color 0.3s ease' }} />
           </linearGradient>
           <path
             style={{ fill: 'url(#LinearGradID_2)' }}
@@ -189,8 +260,10 @@ const Dragon = () => {
             x2="819.2"
             y2="0"
           >
-            <stop offset="0" style={{ stopColor: '#cccccc', stopOpacity: 1 }} />
-            <stop offset="1" style={{ stopColor: '#333333', stopOpacity: 1 }} />
+            <stop offset="0%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="33%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="66%" style={{ transition: 'stop-color 0.3s ease' }} />
+            <stop offset="100%" style={{ transition: 'stop-color 0.3s ease' }} />
           </linearGradient>
           <path
             style={{ fill: 'url(#LinearGradID_3)' }}
