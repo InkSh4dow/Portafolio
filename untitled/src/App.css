@@ -71,7 +71,7 @@
 .contenedor-paneles {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: -1;
 }
 
 .panel-contenido {
@@ -92,6 +92,13 @@
 .panel-contenido.activo {
   opacity: 1;
   pointer-events: auto;
+}
+
+.panel-acerca {
+  background-image: url('./assets/lineas.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .panel-proyectos {
