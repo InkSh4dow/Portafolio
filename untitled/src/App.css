@@ -1,3 +1,33 @@
+:root {
+  /* Paleta de colores principal */
+  --color-primary: #bb86fc;
+  --color-primary-hover: #a36ef4;
+  --bg-main: #121212;
+  --bg-surface: #1e1e1e;
+  --bg-surface-hover: #2a2a2a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #c0c0c0;
+  --text-dark: #121212;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color-hover: rgba(255, 255, 255, 0.2);
+
+  /* Gradientes para bordes de título */
+  --grad-rojo: linear-gradient(90deg, #ff6b6b, #ff0000, #ff4d4d, #d90429, #c1121f, #ff6b6b);
+  --grad-azul: linear-gradient(90deg, #5e72e4, #007bff, #89cff0, #00bfff, #1e90ff, #5e72e4);
+  --grad-verde: linear-gradient(90deg, #66ff66, #00ff7f, #98ff98, #32cd32, #2e8b57, #66ff66);
+  --grad-blanco: linear-gradient(90deg, #ffffff, #e0e0e0, #f8f9fa, #d3d3d3, #f5f5f5, #ffffff);
+
+  /* Tamaños y espaciados */
+  --radius-s: 12px;
+  --radius-m: 16px;
+  --radius-l: 24px;
+  --radius-full: 50%;
+
+  /* Transiciones */
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-med: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 #root {
   max-width: 1280px;
   justify-content: flex-start;
@@ -5,78 +35,63 @@
   text-align: center;
 }
 
+/* === TÍTULO FLOTANTE === */
 .titulo-flotante {
   position: fixed;
   top: 2rem;
   left: 2rem;
   z-index: 50;
   padding: 2px;
-  border-radius: 16px;
+  border-radius: var(--radius-m);
   background-size: 400% 400%;
   animation: rgb-border-glow 4s linear infinite;
 }
 
-.borde-verde {
-  background-image: linear-gradient(90deg, #66ff66, #00ff7f, #98ff98, #32cd32, #2e8b57, #66ff66);
-}
-.borde-rojo {
-  background-image: linear-gradient(90deg, #ff6b6b, #ff0000, #ff4d4d, #d90429, #c1121f, #ff6b6b);
-}
-.borde-azul {
-  background-image: linear-gradient(90deg, #5e72e4, #007bff, #89cff0, #00bfff, #1e90ff, #5e72e4);
-}
-.borde-blanco {
-  background-image: linear-gradient(90deg, #ffffff, #e0e0e0, #f8f9fa, #d3d3d3, #f5f5f5, #ffffff);
-}
-
+.borde-rojo { background-image: var(--grad-rojo); }
+.borde-azul { background-image: var(--grad-azul); }
+.borde-verde { background-image: var(--grad-verde); }
+.borde-blanco { background-image: var(--grad-blanco); }
 
 @keyframes rgb-border-glow {
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
+  0%, 100% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .titulo-flotante h2 {
   margin: 0;
   font-size: 1.5rem;
   background: rgba(30, 30, 30, 0.8);
-  color: #e0e0e0;
+  color: var(--text-primary);
   padding: 0.5rem 1.5rem;
-  border-radius: 14px;
-  backdrop-filter: blur(8px);
+  border-radius: 14px; /* Ligeramente menor que el contenedor para efecto de borde */
+  backdrop-filter: blur(12px);
 }
 
+/* === PANELES DE CONTENIDO === */
 .contenedor-paneles {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 1;
 }
 
 .panel-contenido {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #e0e0e0;
+  color: var(--text-primary);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
   padding: 2rem 1rem;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+.panel-contenido.activo {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .panel-proyectos {
@@ -93,27 +108,22 @@
 .panel-proyectos .contenido-panel-interno {
   max-width: none;
   margin: 0;
-  width: 100%;
 }
 
-.panel-contenido.activo {
-  opacity: 1;
-  pointer-events: auto;
-}
-
+/* === COMPONENTES COMUNES === */
 .avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   margin-bottom: 1rem;
 }
 
 .boton-primario {
-  background-color: #bb86fc;
-  color: #121212;
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   border: none;
   padding: 12px 24px;
-  border-radius: 24px;
+  border-radius: var(--radius-l);
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -122,7 +132,7 @@
 }
 
 .boton-primario:hover {
-  background-color: #a36ef4;
+  background-color: var(--color-primary-hover);
 }
 
 .botones-inicio {
@@ -133,6 +143,67 @@
   justify-content: center;
 }
 
+/* === SECCIÓN ACERCA DE MÍ === */
+.contenedor-acerca {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  gap: 3rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.columna-texto {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.columna-texto p {
+  line-height: 1.4;
+  margin: 0.5rem 0;
+}
+
+.parrafo-izquierda { text-align: left; }
+.parrafo-derecha { text-align: right; }
+
+.columna-tecnologias {
+  flex: 1;
+  max-width: 50%;
+  padding-left: 2rem;
+}
+
+.titulo-nombre {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  text-align: left;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.cursor-typewriter {
+  color: var(--color-primary);
+  animation: blink 1s infinite;
+  font-weight: normal;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* === MARQUESINA DE TECNOLOGÍAS === */
 .contenedor-marquesinas {
   display: flex;
   flex-direction: column;
@@ -143,14 +214,16 @@
 .grupo-tecnologias {
   margin-bottom: 2rem;
 }
-
 .grupo-tecnologias:last-child {
   margin-bottom: 0;
+}
+.grupo-tecnologias .tecnologias-marquesina + .tecnologias-marquesina {
+  margin-top: 1rem;
 }
 
 .titulo-marquesina {
   font-size: 1.2rem;
-  color: #bb86fc;
+  color: var(--color-primary);
   text-align: left;
   margin: 0 0 1rem 0;
   padding-left: 1rem;
@@ -165,7 +238,7 @@
   left: 1rem;
   width: 40px;
   height: 2px;
-  background: linear-gradient(90deg, #bb86fc, transparent);
+  background: linear-gradient(90deg, var(--color-primary), transparent);
   border-radius: 2px;
 }
 
@@ -183,10 +256,18 @@
   animation: marquesina-scroll 25s linear infinite;
   will-change: transform;
 }
+.marquesina-track:hover {
+  animation-play-state: paused;
+}
 
 .tecnologias-marquesina.marquesina-inversa .marquesina-track {
   animation-direction: reverse;
   animation-duration: 20s;
+}
+
+@keyframes marquesina-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.33%); }
 }
 
 .item-tecnologia {
@@ -195,14 +276,14 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.6rem 1rem;
-  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
-  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-hover) 100%);
+  border-radius: var(--radius-s);
   margin: 0 0.3rem;
   font-size: 0.85rem;
-  color: #e0e0e0;
+  color: var(--text-primary);
   font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-med);
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -219,27 +300,24 @@
   transition: left 0.5s ease;
 }
 
+.item-tecnologia:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-color-hover);
+  background: linear-gradient(135deg, var(--bg-surface-hover) 0%, #333333 100%);
+}
 .item-tecnologia:hover::before {
   left: 100%;
 }
-
-.item-tecnologia:hover {
-  transform: translateY(-2px) scale(1.05);
-  border-color: rgba(255, 255, 255, 0.2);
-  background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-}
-
 .item-tecnologia:hover svg {
   transform: scale(1.1) rotate(5deg);
 }
-
 .item-tecnologia:hover span {
   color: #ffffff;
 }
 
 .item-tecnologia svg {
   font-size: 1.3rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-med);
 }
 
 .item-tecnologia span {
@@ -247,108 +325,44 @@
   font-weight: 600;
 }
 
-/* Icon Colors with enhanced effects */
-.item-tecnologia.color-html svg {
-  color: #E34F26;
-}
-.item-tecnologia.color-html:hover svg {
-  color: #ff6b47;
-}
+/* Colores de iconos */
+.item-tecnologia.color-html svg { color: #E34F26; }
+.item-tecnologia.color-html:hover svg { color: #ff6b47; }
+.item-tecnologia.color-css svg { color: #1572B6; }
+.item-tecnologia.color-css:hover svg { color: #3d9cdb; }
+.item-tecnologia.color-js svg { color: #F7DF1E; }
+.item-tecnologia.color-js:hover svg { color: #ffec3d; }
+.item-tecnologia.color-kotlin svg { color: #7F52FF; }
+.item-tecnologia.color-kotlin:hover svg { color: #9c7aff; }
+.item-tecnologia.color-git svg { color: #F05032; }
+.item-tecnologia.color-git:hover svg { color: #ff7a5c; }
+.item-tecnologia.color-github svg { color: #FFFFFF; }
+.item-tecnologia.color-github:hover svg { color: #f0f0f0; }
+.item-tecnologia.color-android-studio svg { color: #3DDC84; }
+.item-tecnologia.color-android-studio:hover svg { color: #5effa3; }
+.item-tecnologia.color-intellij svg { color: #FC355A; }
+.item-tecnologia.color-intellij:hover svg { color: #ff5c7a; }
+.item-tecnologia.color-webstorm svg { color: #00CDD7; }
+.item-tecnologia.color-webstorm:hover svg { color: #33e0e8; }
+.item-tecnologia.color-affinity svg { color: #1B72BE; }
+.item-tecnologia.color-affinity:hover svg { color: #4d93d6; }
 
-.item-tecnologia.color-css svg {
-  color: #1572B6;
-}
-.item-tecnologia.color-css:hover svg {
-  color: #3d9cdb;
-}
-
-.item-tecnologia.color-js svg {
-  color: #F7DF1E;
-}
-.item-tecnologia.color-js:hover svg {
-  color: #ffec3d;
-}
-
-.item-tecnologia.color-kotlin svg {
-  color: #7F52FF;
-}
-.item-tecnologia.color-kotlin:hover svg {
-  color: #9c7aff;
-}
-
-.item-tecnologia.color-git svg {
-  color: #F05032;
-}
-.item-tecnologia.color-git:hover svg {
-  color: #ff7a5c;
-}
-
-.item-tecnologia.color-github svg {
-  color: #FFFFFF;
-}
-.item-tecnologia.color-github:hover svg {
-  color: #f0f0f0;
-}
-
-.item-tecnologia.color-android-studio svg {
-  color: #3DDC84;
-}
-.item-tecnologia.color-android-studio:hover svg {
-  color: #5effa3;
-}
-
-.item-tecnologia.color-intellij svg {
-  color: #FC355A;
-}
-.item-tecnologia.color-intellij:hover svg {
-  color: #ff5c7a;
-}
-
-.item-tecnologia.color-webstorm svg {
-  color: #00CDD7;
-}
-.item-tecnologia.color-webstorm:hover svg {
-  color: #33e0e8;
-}
-
-.item-tecnologia.color-affinity svg {
-  color: #1B72BE;
-}
-.item-tecnologia.color-affinity:hover svg {
-  color: #4d93d6;
-}
-
-.grupo-tecnologias .tecnologias-marquesina + .tecnologias-marquesina {
-  margin-top: 1rem;
-}
-
-@keyframes marquesina-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-33.33%);
-  }
-}
-
-.marquesina-track:hover {
-  animation-play-state: paused;
-}
-
+/* === SECCIÓN PROYECTOS === */
 .grid-proyectos {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
   gap: 1.5rem;
-  margin-top: 0;
   padding: 0 2rem;
   box-sizing: border-box;
 }
 
 .tarjeta-proyecto {
-  background: #1e1e1e;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
-  border-radius: 16px;
+  border-radius: var(--radius-m);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   text-align: left;
   display: flex;
@@ -373,10 +387,18 @@
 }
 
 .enlace-proyecto {
-  color: #bb86fc;
-  font-weight: bold;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  transition: var(--transition-fast);
+  display: inline-block;
 }
 
+.enlace-proyecto:hover {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+/* === SECCIÓN CONTACTO === */
 .enlaces-contacto {
   display: flex;
   flex-direction: column;
@@ -384,6 +406,7 @@
   margin-top: 2rem;
 }
 
+/* === NAVEGACIÓN INFERIOR === */
 .navegacion-inferior {
   position: fixed;
   left: 0;
@@ -392,7 +415,8 @@
   margin: 0 auto;
   max-width: 400px;
   height: 60px;
-  background: #e0e0e0;
+  background: rgba(224, 224, 224, 0.5);
+  backdrop-filter: blur(12px);
   border-radius: 30px;
   box-shadow: 0 4px 24px rgba(80,80,80,0.10);
   display: flex;
@@ -400,8 +424,7 @@
   align-items: center;
   padding: 0 12px;
   z-index: 100;
-  border: 1px solid #c0c0c0;
-  transition: all 0.2s ease-in-out;
+  transition: var(--transition-fast);
 }
 
 .navegacion-inferior-interna {
@@ -413,13 +436,12 @@
 }
 
 .item-navegacion {
-  background: #e0e0e0;
+  background: transparent;
   border: none;
   outline: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   box-shadow: none;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -429,28 +451,20 @@
   height: 48px;
   overflow: hidden;
 }
-
 .item-navegacion:focus {
   outline: none;
   box-shadow: none;
 }
-
 .item-navegacion:hover {
-  background: #b0b0b0;
+  background: rgba(176, 176, 176, 0.5);
   width: 160px;
-  border-radius: 24px;
+  border-radius: var(--radius-l);
   justify-content: flex-start;
   padding: 0 1rem;
 }
-
-.item-navegacion.item-acerca:hover {
-  width: 160px;
-}
-
 .item-navegacion.activo {
-  background: #c8c8c8;
+  background: rgba(200, 200, 200, 0.5);
 }
-
 .item-navegacion.activo .icono-navegacion {
   color: #222;
 }
@@ -482,74 +496,7 @@
   margin-left: 0.5rem;
 }
 
-.contenedor-acerca {
-  display: flex;
-  width: 100%;
-  max-width: 1200px;
-  gap: 3rem;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
-
-.columna-texto {
-  flex: 1;
-  max-width: 50%;
-  padding-right: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.columna-texto p {
-  line-height: 1.4;
-  margin: 0.5rem 0;
-}
-
-.parrafo-izquierda {
-  text-align: left;
-}
-
-.parrafo-derecha {
-  text-align: right;
-}
-
-.columna-tecnologias {
-  flex: 1;
-  max-width: 50%;
-  padding-left: 2rem;
-}
-
-.titulo-nombre {
-  font-size: 1.8rem;
-  color: #bb86fc;
-  margin: 0 0 1rem 0;
-  font-weight: 600;
-  text-align: left;
-  min-height: 2.2rem;
-  display: flex;
-  align-items: center;
-}
-
-.cursor-typewriter {
-  color: #bb86fc;
-  animation: blink 1s infinite;
-  font-weight: normal;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
-}
-
+/* === MEDIA QUERIES === */
 @media (max-width: 768px) {
   .contenedor-acerca {
     flex-direction: column;

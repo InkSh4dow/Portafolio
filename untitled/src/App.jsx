@@ -139,7 +139,9 @@ const ProyectosPanel = () => (
         <div className="info-proyecto">
           <h3>Calculadora Kotlin</h3>
           <p>Una simple calculadora hecha en Kotlin.</p>
-          <a href="#" className="enlace-proyecto">Ver en GitHub</a>
+          <a href="#" className="enlace-proyecto" title="Ver en GitHub">
+            <SiGithub />
+          </a>
         </div>
       </div>
       <div className="tarjeta-proyecto">
@@ -147,7 +149,9 @@ const ProyectosPanel = () => (
         <div className="info-proyecto">
           <h3>App de Notas</h3>
           <p>Aplicación para tomar notas con persistencia local.</p>
-          <a href="#" className="enlace-proyecto">Ver en GitHub</a>
+          <a href="#" className="enlace-proyecto" title="Ver en GitHub">
+            <SiGithub />
+          </a>
         </div>
       </div>
     </div>
@@ -247,4 +251,3 @@ function App() {
 }
 
 export default App
-
