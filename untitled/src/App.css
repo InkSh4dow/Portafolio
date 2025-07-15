@@ -241,9 +241,19 @@ button:focus-visible {
   padding-left: 2rem;
 }
 
+.titulo-nombre,
+.titulo-marquesina {
+  background: var(--grad-azul);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rgb-text-glow 5s linear infinite;
+}
+
 .titulo-nombre {
   font-size: 1.8rem;
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
   margin: 0 0 1rem 0;
   font-weight: 600;
   text-align: left;
@@ -262,6 +272,12 @@ button:focus-visible {
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+@keyframes rgb-text-glow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* === MARQUESINA DE TECNOLOGÍAS === */
@@ -284,7 +300,7 @@ button:focus-visible {
 
 .titulo-marquesina {
   font-size: 1.2rem;
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
   text-align: left;
   margin: 0 0 1rem 0;
   padding-left: 1rem;

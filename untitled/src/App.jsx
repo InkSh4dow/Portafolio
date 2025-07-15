@@ -105,7 +105,7 @@ const AcercaPanel = () => {
   return (
       <div className="contenedor-acerca">
         <div className="columna-texto">
-          <h3 className="titulo-nombre">
+          <h3 className="titulo-nombre texto-rgb">
             {textoAnimado}
             <span className="cursor-typewriter">|</span>
           </h3>
@@ -118,11 +118,11 @@ const AcercaPanel = () => {
         <div className="columna-tecnologias">
           <div className="contenedor-marquesinas">
             <div className="grupo-tecnologias">
-              <h3 className="titulo-marquesina">Lenguajes</h3>
+              <h3 className="titulo-marquesina texto-rgb">Lenguajes</h3>
               <TecnologiaMarquee items={lenguajes} />
             </div>
             <div className="grupo-tecnologias">
-              <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
+              <h3 className="titulo-marquesina texto-rgb">IDEs y Herramientas</h3>
               <TecnologiaMarquee items={herramientas1} reverse />
               <TecnologiaMarquee items={herramientas2} reverse />
             </div>
