@@ -71,12 +71,6 @@ const Dragon = ({ theme = 'proyectos' }) => {
       screen.appendChild(elem);
     };
 
-    const handleMouseMove = (e) => {
-      pointer.x = e.clientX;
-      pointer.y = e.clientY;
-      rad = 0;
-    };
-
     const resize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
@@ -168,8 +162,6 @@ const Dragon = ({ theme = 'proyectos' }) => {
     }
 
     // Event listeners
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("pointermove", handleMouseMove);
     window.addEventListener("resize", resize);
 
     // Iniciar animación
@@ -180,8 +172,6 @@ const Dragon = ({ theme = 'proyectos' }) => {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("pointermove", handleMouseMove);
       window.removeEventListener("resize", resize);
       if (screen) {
         screen.innerHTML = '';
