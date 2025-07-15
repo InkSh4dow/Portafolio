@@ -50,6 +50,13 @@ const bordesSeccion = {
   contacto: 'borde-blanco'
 };
 
+const angulosSeccion = {
+  inicio: '0deg',
+  acerca: '45deg',
+  proyectos: '90deg',
+  contacto: '135deg'
+};
+
 const lenguajes = [
   { nombre: 'HTML', icono: <SiHtml5 />, className: 'color-html' },
   { nombre: 'CSS', icono: <SiCss3 />, className: 'color-css' },
@@ -170,6 +177,10 @@ const ContactoPanel = () => (
 
 
 function AppContent({ activo, setActivo }) {
+  useEffect(() => {
+    document.documentElement.style.setProperty('--bg-rotation', angulosSeccion[activo]);
+  }, [activo]);
+
   const manejarClick = (seccion) => {
     setActivo(seccion)
   }

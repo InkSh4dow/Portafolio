@@ -139,8 +139,24 @@ button:focus-visible {
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
   padding: 2rem 1rem;
-  overflow-y: auto;
+  overflow: hidden; /* Oculta el exceso del pseudo-elemento rotado */
   box-sizing: border-box;
+  /* El fondo se mueve al pseudo-elemento ::before */
+}
+
+.panel-contenido::before {
+  content: '';
+  position: absolute;
+  /* Hacemos el pseudo-elemento más grande para que no se vean los bordes al rotar */
+  inset: -50%;
+  z-index: -1;
+  background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('./assets/lineas.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: repeat;
+  transform: rotate(var(--bg-rotation, 0deg));
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
 }
 
 .panel-contenido.activo {
@@ -149,10 +165,7 @@ button:focus-visible {
 }
 
 .panel-acerca {
-  background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('./assets/lineas.svg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* Estilos de fondo movidos a .panel-contenido */
 }
 
 .panel-proyectos {
