@@ -42,7 +42,7 @@
 
 body {
   margin: 0;
-  display: flex;
+/* === SECCIÓN PROYECTS === */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -125,12 +125,64 @@ button:focus-visible {
 .contenedor-paneles {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2; /* Más abajo que todo */
+  pointer-events: none;
 }
 
-.panel-contenido {
+.panel-fondo {
   position: absolute;
   inset: 0;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.panel-fondo.activo {
+  opacity: 1;
+}
+
+.panel-fondo::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  z-index: -2;
+  background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('./assets/lineas.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: repeat;
+  transform: rotate(var(--bg-rotation, 0deg));
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -50%;
+}
+
+/* El dragón debe estar encima del fondo pero debajo del contenido */
+.dragon-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Paneles de contenido (textos, botones, tecnologías) */
+.paneles-contenido-superior {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Panel de contenido: sin fondo, sólo contenido */
+.panel-contenido {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,49 +191,44 @@ button:focus-visible {
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
   padding: 2rem 1rem;
-  overflow: hidden; /* Oculta el exceso del pseudo-elemento rotado */
+  overflow: auto;
   box-sizing: border-box;
-  /* El fondo se mueve al pseudo-elemento ::before */
-}
-
-.panel-contenido::before {
-  content: '';
-  position: absolute;
-  /* Hacemos el pseudo-elemento más grande para que no se vean los bordes al rotar */
-  inset: -50%;
-  z-index: -1;
-  background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('./assets/lineas.svg');
-  background-size: auto;
-  background-position: center;
-  background-repeat: repeat;
-  transform: rotate(var(--bg-rotation, 0deg));
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
+  z-index: 0;
 }
 
 .panel-contenido.activo {
   opacity: 1;
   pointer-events: auto;
-}
-
-.panel-acerca {
-  /* Estilos de fondo movidos a .panel-contenido */
-}
-
-.panel-proyectos {
-  align-items: flex-start;
-  padding-top: 7rem;
+  z-index: 1;
 }
 
 .contenido-panel-interno {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+  background: transparent;
+  border-radius: var(--radius-m);
+  box-shadow: none; /* Quita la sombra */
+  padding: 2rem;
+  max-width: 100vw;
+  max-height: 90vh;
+  overflow: auto;
+  min-width: 320px;
 }
 
-.panel-proyectos .contenido-panel-interno {
-  max-width: none;
-  margin: 0;
+@media (max-width: 768px) {
+  .contenido-panel-interno {
+    padding: 1rem;
+    min-width: unset;
+  }
+}
+
+/* Título flotante y navegación inferior arriba de todo */
+.titulo-flotante {
+  z-index: 10;
+  /* ...existing code... */
+}
+
+.navegacion-inferior {
+  z-index: 100;
+  /* ...existing code... */
 }
 
 /* === SECCIÓN INICIO === */
@@ -592,12 +639,12 @@ button:focus-visible {
 }
 
 .tarjeta-proyecto {
-  background: rgba(30, 30, 30, 0.6);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  backdrop-filter: none;
   border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: var(--radius-m);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: none; /* Quita la sombra */
   text-align: left;
   display: flex;
   flex-direction: column;

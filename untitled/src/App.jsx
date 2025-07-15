@@ -198,11 +198,24 @@ const ContactoPanel = () => (
   </>
 );
 
-function AppContent({ activo, setActivo }) {
+// Nuevo componente para el fondo, para asegurar que esté en el fondo de todo
+function FondoPaneles({ activo }) {
   useEffect(() => {
     document.documentElement.style.setProperty('--bg-rotation', angulosSeccion[activo]);
   }, [activo]);
+  return (
+    <div className="contenedor-paneles">
+      {Object.keys(nombresSeccion).map((seccionKey) => (
+        <div
+          key={seccionKey}
+          className={`panel-fondo panel-fondo-${seccionKey} ${activo === seccionKey ? 'activo' : ''}`}
+        />
+      ))}
+    </div>
+  );
+}
 
+function AppContent({ activo, setActivo }) {
   const manejarClick = useCallback((seccion) => setActivo(seccion), [setActivo]);
 
   const paneles = useMemo(() => ({
@@ -214,10 +227,14 @@ function AppContent({ activo, setActivo }) {
 
   return (
     <>
+      {/* El fondo ahora se renderiza fuera, en el componente superior */}
+      {/* Dragon va después del fondo */}
+      {/* Título flotante y navegación inferior arriba de todo */}
       <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
         <h2>{nombresSeccion[activo]}</h2>
       </div>
-      <div className="contenedor-paneles">
+      {/* Panel de contenido (textos, botones, tecnologías) */}
+      <div className="paneles-contenido-superior">
         {Object.keys(nombresSeccion).map((seccionKey) => (
           <div
             key={seccionKey}
@@ -257,7 +274,13 @@ function App() {
 
   return (
     <>
-      <Dragon theme={activo} />
+      {/* Fondo abajo de todo */}
+      <FondoPaneles activo={activo} />
+      {/* Dragon encima del fondo */}
+      <div className="dragon-container">
+        <Dragon theme={activo} />
+      </div>
+      {/* Textos, botones y barra de tecnologías */}
       <AppContent activo={activo} setActivo={setActivo} />
     </>
   );
