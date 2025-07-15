@@ -73,20 +73,34 @@ const herramientas2 = [
   { nombre: 'Affinity Publisher', icono: <SiAffinity />, className: 'color-affinity' },
 ];
 
-const InicioPanel = ({ setActivo }) => (
-  <div className="contenedor-inicio">
-    <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar" />
-    <div className="info-inicio">
-      <p>Desarrollador de Software y entusiasta de la tecnología.</p>
-      <div className="botones-inicio">
-        <button className="boton-primario" onClick={() => setActivo('proyectos')}>
-          Ver mis proyectos
-        </button>
-        <button className="boton-primario">Descargar CV</button>
+const InicioPanel = ({ setActivo }) => {
+  // Animación de escritura para el título de inicio
+  const titulos = useMemo(() => ['Hola Mundo', 'Hello World'], []);
+  const tituloAnimado = useTypewriter(titulos, 100, 50, 1500);
+
+  return (
+    <div className="contenedor-inicio">
+      <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar avatar-sin-sombra" />
+      <div className="info-inicio">
+        <h1 className="titulo-inicio-rgb">
+          {tituloAnimado}
+          <span className="cursor-typewriter">|</span>
+        </h1>
+        <div className="mini-descripcion">
+          Desarrollador de Software y entusiasta de la tecnología.
+        </div>
+        <div className="botones-inicio">
+          <button className="boton-rojo" onClick={() => setActivo('proyectos')}>
+            Ver mis proyectos
+          </button>
+          <button className="boton-azul">
+            Descargar CV
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const TecnologiaMarquee = ({ items, reverse = false }) => (
   <div className={`tecnologias-marquesina${reverse ? ' marquesina-inversa' : ''}`}>
