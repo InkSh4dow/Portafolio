@@ -26,6 +26,11 @@ const colorPalettes = {
 const Dragon = ({ theme = 'proyectos' }) => {
   const svgRef = useRef(null);
   const animationFrameId = useRef(null);
+  const themeRef = useRef(theme);
+
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -124,7 +129,8 @@ const Dragon = ({ theme = 'proyectos' }) => {
       }
 
       // --- ANIMACIÓN DINÁMICA DE COLORES ---
-      const palette = colorPalettes[theme] || colorPalettes.proyectos;
+      const currentTheme = themeRef.current;
+      const palette = colorPalettes[currentTheme] || colorPalettes.proyectos;
       const colors = palette.gradient;
       const numColors = colors.length;
       const timeOffset = Math.floor(frm * 150);
@@ -181,7 +187,7 @@ const Dragon = ({ theme = 'proyectos' }) => {
         screen.innerHTML = '';
       }
     };
-  }, [theme]);
+  }, []);
 
   return (
     <svg

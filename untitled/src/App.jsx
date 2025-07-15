@@ -69,9 +69,7 @@ const herramientas2 = [
   { nombre: 'Affinity Publisher', icono: <SiAffinity />, className: 'color-affinity' },
 ];
 
-function App() {
-  const [activo, setActivo] = useState('proyectos')
-
+function AppContent({ activo, setActivo }) {
   const nombres = ['Joseph Rodriguez', 'Desarrollador Web y Mobile'];
   const textoAnimado = useTypewriter(nombres, 100, 50, 1500);
 
@@ -194,7 +192,6 @@ function App() {
 
   return (
       <>
-        <Dragon theme={activo} />
         <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
           <h2>{nombresSeccion[activo]}</h2>
         </div>
@@ -251,4 +248,16 @@ function App() {
   )
 }
 
+function App() {
+  const [activo, setActivo] = useState('proyectos');
+
+  return (
+    <>
+      <Dragon theme={activo} />
+      <AppContent activo={activo} setActivo={setActivo} />
+    </>
+  );
+}
+
 export default App
+
