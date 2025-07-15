@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import './App.css'
 import Dragon from './Dragon'
 import { AiFillHome } from 'react-icons/ai'
@@ -12,50 +12,47 @@ const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 200
 
   useEffect(() => {
     const currentWord = words[currentWordIndex];
-
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        if (currentText.length < currentWord.length) {
-          setCurrentText(currentWord.slice(0, currentText.length + 1));
-        } else {
-          setTimeout(() => setIsDeleting(true), pauseTime);
-        }
+    let timer;
+    if (!isDeleting) {
+      if (currentText.length < currentWord.length) {
+        timer = setTimeout(() => setCurrentText(currentWord.slice(0, currentText.length + 1)), typeSpeed);
       } else {
-        if (currentText.length > 0) {
-          setCurrentText(currentText.slice(0, -1));
-        } else {
-          setIsDeleting(false);
-          setCurrentWordIndex((prev) => (prev + 1) % words.length);
-        }
+        timer = setTimeout(() => setIsDeleting(true), pauseTime);
       }
-    }, isDeleting ? deleteSpeed : typeSpeed);
-
+    } else {
+      if (currentText.length > 0) {
+        timer = setTimeout(() => setCurrentText(currentText.slice(0, -1)), deleteSpeed);
+      } else {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+      }
+    }
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, currentWordIndex, words, typeSpeed, deleteSpeed, pauseTime]);
 
   return currentText;
 };
 
-const nombresSeccion = {
+const nombresSeccion = Object.freeze({
   inicio: 'Inicio',
   acerca: 'Acerca de mí',
   proyectos: 'Proyectos',
   contacto: 'Contacto'
-}
+});
 
-const bordesSeccion = {
+const bordesSeccion = Object.freeze({
   inicio: 'borde-rojo',
   acerca: 'borde-azul',
   proyectos: 'borde-verde',
   contacto: 'borde-blanco'
-};
+});
 
-const angulosSeccion = {
+const angulosSeccion = Object.freeze({
   inicio: '0deg',
   acerca: '45deg',
   proyectos: '90deg',
   contacto: '135deg'
-};
+});
 
 const lenguajes = [
   { nombre: 'HTML', icono: <SiHtml5 />, className: 'color-html' },
@@ -77,178 +74,163 @@ const herramientas2 = [
 ];
 
 const InicioPanel = ({ setActivo }) => (
-    <div className="contenedor-inicio">
-      <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar" />
-      <div className="info-inicio">
-        <p>Desarrollador de Software y entusiasta de la tecnología.</p>
-        <div className="botones-inicio">
-          <button className="boton-primario" onClick={() => setActivo('proyectos')}>
-            Ver mis proyectos
-          </button>
-          <button className="boton-primario">Descargar CV</button>
-        </div>
+  <div className="contenedor-inicio">
+    <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar" />
+    <div className="info-inicio">
+      <p>Desarrollador de Software y entusiasta de la tecnología.</p>
+      <div className="botones-inicio">
+        <button className="boton-primario" onClick={() => setActivo('proyectos')}>
+          Ver mis proyectos
+        </button>
+        <button className="boton-primario">Descargar CV</button>
       </div>
     </div>
+  </div>
 );
 
 const TecnologiaMarquee = ({ items, reverse = false }) => (
-    <div className={`tecnologias-marquesina ${reverse ? 'marquesina-inversa' : ''}`}>
-      <div className="marquesina-track">
-        {[...items, ...items, ...items].map((tech, index) => (
-            <div
-                className={`item-tecnologia ${tech.className}`}
-                key={`${tech.nombre}-${index}`}
-            >
-              {tech.icono}
-              <span>{tech.nombre}</span>
-            </div>
-        ))}
-      </div>
+  <div className={`tecnologias-marquesina${reverse ? ' marquesina-inversa' : ''}`}>
+    <div className="marquesina-track">
+      {[...items, ...items, ...items].map((tech, index) => (
+        <div
+          className={`item-tecnologia ${tech.className}`}
+          key={`${tech.nombre}-${index}`}
+        >
+          {tech.icono}
+          <span>{tech.nombre}</span>
+        </div>
+      ))}
     </div>
+  </div>
 );
 
 const AcercaPanel = () => {
-  const nombres = ['Joseph Rodriguez', 'Desarrollador Web y Mobile'];
+  const nombres = useMemo(() => ['Joseph Rodriguez', 'Desarrollador Web y Mobile'], []);
   const textoAnimado = useTypewriter(nombres, 100, 50, 1500);
 
   return (
-      <div className="contenedor-acerca">
-        <div className="columna-texto">
-          <h3 className="titulo-nombre texto-rgb">
-            {textoAnimado}
-            <span className="cursor-typewriter">|</span>
-          </h3>
-          <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
-          <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
-          <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
-          <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
-        </div>
-
-        <div className="columna-tecnologias">
-          <div className="contenedor-marquesinas">
-            <div className="grupo-tecnologias">
-              <h3 className="titulo-marquesina texto-rgb">Lenguajes</h3>
-              <TecnologiaMarquee items={lenguajes} />
-            </div>
-            <div className="grupo-tecnologias">
-              <h3 className="titulo-marquesina texto-rgb">IDEs y Herramientas</h3>
-              <TecnologiaMarquee items={herramientas1} reverse />
-              <TecnologiaMarquee items={herramientas2} reverse />
-            </div>
+    <div className="contenedor-acerca">
+      <div className="columna-texto">
+        <h3 className="titulo-nombre texto-rgb">
+          {textoAnimado}
+          <span className="cursor-typewriter">|</span>
+        </h3>
+        <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
+        <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
+        <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
+        <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
+      </div>
+      <div className="columna-tecnologias">
+        <div className="contenedor-marquesinas">
+          <div className="grupo-tecnologias">
+            <h3 className="titulo-marquesina texto-rgb">Lenguajes</h3>
+            <TecnologiaMarquee items={lenguajes} />
+          </div>
+          <div className="grupo-tecnologias">
+            <h3 className="titulo-marquesina texto-rgb">IDEs y Herramientas</h3>
+            <TecnologiaMarquee items={herramientas1} reverse />
+            <TecnologiaMarquee items={herramientas2} reverse />
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
 const ProyectosPanel = () => (
-    <div className="grid-proyectos">
-      <div className="tarjeta-proyecto">
-        <img src="https://via.placeholder.com/150x100" alt="Calculadora" className="imagen-proyecto" />
+  <div className="grid-proyectos">
+    {[
+      {
+        img: "https://via.placeholder.com/150x100",
+        alt: "Calculadora",
+        titulo: "Calculadora Kotlin",
+        desc: "Una simple calculadora hecha en Kotlin.",
+        link: "#"
+      },
+      {
+        img: "https://via.placeholder.com/150x100",
+        alt: "App de Notas",
+        titulo: "App de Notas",
+        desc: "Aplicación para tomar notas con persistencia local.",
+        link: "#"
+      }
+    ].map((proy, i) => (
+      <div className="tarjeta-proyecto" key={i}>
+        <img src={proy.img} alt={proy.alt} className="imagen-proyecto" />
         <div className="info-proyecto">
-          <h3>Calculadora Kotlin</h3>
-          <p>Una simple calculadora hecha en Kotlin.</p>
-          <a href="#" className="enlace-proyecto" title="Ver en GitHub">
+          <h3>{proy.titulo}</h3>
+          <p>{proy.desc}</p>
+          <a href={proy.link} className="enlace-proyecto" title="Ver en GitHub">
             <SiGithub />
           </a>
         </div>
       </div>
-      <div className="tarjeta-proyecto">
-        <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="imagen-proyecto" />
-        <div className="info-proyecto">
-          <h3>App de Notas</h3>
-          <p>Aplicación para tomar notas con persistencia local.</p>
-          <a href="#" className="enlace-proyecto" title="Ver en GitHub">
-            <SiGithub />
-          </a>
-        </div>
-      </div>
-    </div>
+    ))}
+  </div>
 );
 
 const ContactoPanel = () => (
-    <>
-      <p>Puedes encontrarme en mis redes sociales o enviarme un correo.</p>
-      <div className="enlaces-contacto">
-        <a href="#" className="enlace-proyecto">GitHub</a>
-        <a href="#" className="enlace-proyecto">LinkedIn</a>
-        <a href="#" className="enlace-proyecto">correo@ejemplo.com</a>
-      </div>
-    </>
+  <>
+    <p>Puedes encontrarme en mis redes sociales o enviarme un correo.</p>
+    <div className="enlaces-contacto">
+      <a href="#" className="enlace-proyecto">GitHub</a>
+      <a href="#" className="enlace-proyecto">LinkedIn</a>
+      <a href="#" className="enlace-proyecto">correo@ejemplo.com</a>
+    </div>
+  </>
 );
-
 
 function AppContent({ activo, setActivo }) {
   useEffect(() => {
     document.documentElement.style.setProperty('--bg-rotation', angulosSeccion[activo]);
   }, [activo]);
 
-  const manejarClick = (seccion) => {
-    setActivo(seccion)
-  }
+  const manejarClick = useCallback((seccion) => setActivo(seccion), [setActivo]);
 
-  const paneles = {
+  const paneles = useMemo(() => ({
     inicio: <InicioPanel setActivo={setActivo} />,
     acerca: <AcercaPanel />,
     proyectos: <ProyectosPanel />,
     contacto: <ContactoPanel />
-  };
+  }), [setActivo]);
 
   return (
-      <>
-        <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
-          <h2>{nombresSeccion[activo]}</h2>
-        </div>
-        <div className="contenedor-paneles">
-          {Object.keys(nombresSeccion).map((seccionKey) => (
-              <div
-                  key={seccionKey}
-                  className={`panel-contenido panel-${seccionKey} ${
-                      activo === seccionKey ? 'activo' : ''
-                  }`}
-              >
-                <div className="contenido-panel-interno">
-                  {paneles[seccionKey]}
-                </div>
-              </div>
+    <>
+      <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
+        <h2>{nombresSeccion[activo]}</h2>
+      </div>
+      <div className="contenedor-paneles">
+        {Object.keys(nombresSeccion).map((seccionKey) => (
+          <div
+            key={seccionKey}
+            className={`panel-contenido panel-${seccionKey} ${activo === seccionKey ? 'activo' : ''}`}
+          >
+            <div className="contenido-panel-interno">
+              {paneles[seccionKey]}
+            </div>
+          </div>
+        ))}
+      </div>
+      <nav className="navegacion-inferior">
+        <div className="navegacion-inferior-interna">
+          {[
+            { key: 'inicio', icon: <AiFillHome />, label: 'Inicio' },
+            { key: 'acerca', icon: <FaUser />, label: 'Acerca' },
+            { key: 'proyectos', icon: <FaFolderOpen />, label: 'Proyectos' },
+            { key: 'contacto', icon: <FaEnvelope />, label: 'Contacto' }
+          ].map(({ key, icon, label }) => (
+            <button
+              key={key}
+              className={`item-navegacion${activo === key ? ' activo' : ''}${key === 'acerca' ? ' item-acerca' : ''}`}
+              onClick={() => manejarClick(key)}
+            >
+              <span className="icono-navegacion">{icon}</span>
+              <span className="etiqueta-navegacion">{label}</span>
+            </button>
           ))}
         </div>
-
-        <nav className="navegacion-inferior">
-          <div className="navegacion-inferior-interna">
-            <button
-                className={`item-navegacion ${activo === 'inicio' ? ' activo' : ''}`}
-                onClick={() => manejarClick('inicio')}
-            >
-              <span className="icono-navegacion"><AiFillHome /></span>
-              <span className="etiqueta-navegacion">Inicio</span>
-            </button>
-            <button
-                className={`item-navegacion item-acerca ${activo === 'acerca' ? ' activo' : ''}`}
-                onClick={() => manejarClick('acerca')}
-            >
-              <span className="icono-navegacion"><FaUser /></span>
-              <span className="etiqueta-navegacion">Acerca</span>
-            </button>
-            <button
-                className={`item-navegacion ${activo === 'proyectos' ? ' activo' : ''}`}
-                onClick={() => manejarClick('proyectos')}
-            >
-              <span className="icono-navegacion"><FaFolderOpen /></span>
-              <span className="etiqueta-navegacion">Proyectos</span>
-            </button>
-            <button
-                className={`item-navegacion ${
-                    activo === 'contacto' ? ' activo' : ''
-                }`}
-                onClick={() => manejarClick('contacto')}
-            >
-              <span className="icono-navegacion"><FaEnvelope /></span>
-              <span className="etiqueta-navegacion">Contacto</span>
-            </button>
-          </div>
-        </nav>
-      </>
+      </nav>
+    </>
   )
 }
 
