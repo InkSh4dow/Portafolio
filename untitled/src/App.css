@@ -125,7 +125,7 @@ button:focus-visible {
 .contenedor-paneles {
   position: fixed;
   inset: 0;
-  z-index: -2; /* Más abajo que todo */
+  z-index: -2; 
   pointer-events: none;
 }
 
@@ -220,15 +220,12 @@ button:focus-visible {
   }
 }
 
-/* Título flotante y navegación inferior arriba de todo */
 .titulo-flotante {
   z-index: 10;
-  /* ...existing code... */
 }
 
 .navegacion-inferior {
   z-index: 100;
-  /* ...existing code... */
 }
 
 /* === SECCIÓN INICIO === */
@@ -367,34 +364,6 @@ button:focus-visible {
   margin-top: 1.5rem;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-/* Botones animados estilo tecnologías para inicio */
-.boton-inicio-animado {
-  min-width: 160px;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.8rem 1.5rem;
-  margin: 0;
-  margin-top: 0;
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-
-.boton-inicio-animado::before {
-  /* Hereda animación de item-tecnologia */
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  transition: left 0.5s ease;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .boton-inicio-animado:hover,
