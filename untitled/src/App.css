@@ -322,6 +322,57 @@ button:focus-visible {
   justify-content: flex-start;
 }
 
+/* Botones animados estilo tecnologías para inicio */
+.boton-inicio-animado {
+  min-width: 160px;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  margin: 0;
+  margin-top: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.boton-inicio-animado::before {
+  /* Hereda animación de item-tecnologia */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.boton-inicio-animado:hover,
+.boton-inicio-animado:focus {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-color-hover);
+  background: linear-gradient(135deg, var(--bg-surface-hover) 0%, #333333 100%);
+  color: #fff;
+  z-index: 2;
+}
+
+.boton-inicio-animado:hover::before,
+.boton-inicio-animado:focus::before {
+  left: 100%;
+}
+
+.boton-inicio-animado:active {
+  transform: scale(0.98);
+}
+
+/* Asegura que los botones no tengan iconos grandes como los de tecnologías */
+.boton-inicio-animado svg {
+  display: none;
+}
+
 /* === SECCIÓN ACERCA DE MÍ === */
 .contenedor-acerca {
   display: flex;

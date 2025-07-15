@@ -75,7 +75,7 @@ const herramientas2 = [
 
 const InicioPanel = ({ setActivo }) => {
   // Animación de escritura para el título de inicio
-  const titulos = useMemo(() => ['Hola Mundo', 'Hello World'], []);
+  const titulos = useMemo(() => ['Hello world', 'Hola mundo'], []);
   const tituloAnimado = useTypewriter(titulos, 100, 50, 1500);
 
   return (
@@ -87,13 +87,17 @@ const InicioPanel = ({ setActivo }) => {
           <span className="cursor-typewriter">|</span>
         </h1>
         <div className="mini-descripcion">
-          Desarrollador de Software y entusiasta de la tecnología.
+          Hola. Soy Joseph Rodriguez, enfocado en diseñar y construir software que se vea bien y que le guste a los demás. Conoce los proyectos que he desarrollado.
         </div>
         <div className="botones-inicio">
-          <button className="boton-rojo" onClick={() => setActivo('proyectos')}>
+          <button
+            className="item-tecnologia boton-inicio-animado"
+            onClick={() => setActivo('proyectos')}
+            type="button"
+          >
             Ver mis proyectos
           </button>
-          <button className="boton-azul">
+          <button className="item-tecnologia boton-inicio-animado" type="button">
             Descargar CV
           </button>
         </div>
@@ -229,7 +233,7 @@ function AppContent({ activo, setActivo }) {
         <div className="navegacion-inferior-interna">
           {[
             { key: 'inicio', icon: <AiFillHome />, label: 'Inicio' },
-            { key: 'acerca', icon: <FaUser />, label: 'Acerca' },
+            { key: 'acerca', icon: <FaUser />, label: 'Acerca de' },
             { key: 'proyectos', icon: <FaFolderOpen />, label: 'Proyectos' },
             { key: 'contacto', icon: <FaEnvelope />, label: 'Contacto' }
           ].map(({ key, icon, label }) => (
