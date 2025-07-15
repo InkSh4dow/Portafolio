@@ -198,7 +198,6 @@ const ContactoPanel = () => (
   </>
 );
 
-// Nuevo componente para el fondo, para asegurar que esté en el fondo de todo
 function FondoPaneles({ activo }) {
   useEffect(() => {
     document.documentElement.style.setProperty('--bg-rotation', angulosSeccion[activo]);
@@ -229,7 +228,6 @@ function AppContent({ activo, setActivo }) {
     <>
       {/* El fondo ahora se renderiza fuera, en el componente superior */}
       {/* Dragon va después del fondo */}
-      {/* Título flotante y navegación inferior arriba de todo */}
       <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
         <h2>{nombresSeccion[activo]}</h2>
       </div>
@@ -274,7 +272,6 @@ function App() {
 
   return (
     <>
-      {/* Fondo abajo de todo */}
       <FondoPaneles activo={activo} />
       {/* Dragon encima del fondo */}
       <div className="dragon-container">
