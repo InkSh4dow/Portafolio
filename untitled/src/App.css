@@ -184,12 +184,40 @@ button:focus-visible {
   margin: 0;
 }
 
+/* === SECCIÓN INICIO === */
+.contenedor-inicio {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.info-inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.info-inicio p {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin: 0;
+  font-weight: 500;
+}
+
 /* === COMPONENTES COMUNES === */
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 300px;
+  height: 300px;
   border-radius: var(--radius-full);
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 4px solid var(--bg-surface);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
 .boton-primario {
@@ -212,9 +240,9 @@ button:focus-visible {
 .botones-inicio {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* === SECCIÓN ACERCA DE MÍ === */
@@ -318,18 +346,6 @@ button:focus-visible {
   margin: 0 0 1rem 0;
   padding-left: 1rem;
   font-weight: 600;
-  position: relative;
-}
-
-.titulo-marquesina::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 1rem;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-primary), transparent);
-  border-radius: 2px;
 }
 
 .tecnologias-marquesina {
@@ -588,6 +604,24 @@ button:focus-visible {
 
 /* === MEDIA QUERIES === */
 @media (max-width: 768px) {
+  .contenedor-inicio {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .info-inicio {
+    align-items: center;
+  }
+
+  .info-inicio p {
+    text-align: center;
+  }
+
+  .botones-inicio {
+    justify-content: center;
+  }
+
   .contenedor-acerca {
     flex-direction: column;
     gap: 1.5rem;

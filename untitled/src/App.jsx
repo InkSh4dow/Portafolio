@@ -77,16 +77,18 @@ const herramientas2 = [
 ];
 
 const InicioPanel = ({ setActivo }) => (
-    <>
-      <img src="https://via.placeholder.com/150" alt="Avatar" className="avatar" />
-      <p>Desarrollador de Software y entusiasta de la tecnología.</p>
-      <div className="botones-inicio">
-        <button className="boton-primario" onClick={() => setActivo('proyectos')}>
-          Ver mis proyectos
-        </button>
-        <button className="boton-primario">Descargar CV</button>
+    <div className="contenedor-inicio">
+      <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar" />
+      <div className="info-inicio">
+        <p>Desarrollador de Software y entusiasta de la tecnología.</p>
+        <div className="botones-inicio">
+          <button className="boton-primario" onClick={() => setActivo('proyectos')}>
+            Ver mis proyectos
+          </button>
+          <button className="boton-primario">Descargar CV</button>
+        </div>
       </div>
-    </>
+    </div>
 );
 
 const TecnologiaMarquee = ({ items, reverse = false }) => (
@@ -251,7 +253,7 @@ function AppContent({ activo, setActivo }) {
 }
 
 function App() {
-  const [activo, setActivo] = useState('proyectos');
+  const [activo, setActivo] = useState('inicio');
 
   return (
     <>
