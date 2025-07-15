@@ -69,125 +69,112 @@ const herramientas2 = [
   { nombre: 'Affinity Publisher', icono: <SiAffinity />, className: 'color-affinity' },
 ];
 
-function AppContent({ activo, setActivo }) {
+const InicioPanel = ({ setActivo }) => (
+    <>
+      <img src="https://via.placeholder.com/150" alt="Avatar" className="avatar" />
+      <p>Desarrollador de Software y entusiasta de la tecnología.</p>
+      <div className="botones-inicio">
+        <button className="boton-primario" onClick={() => setActivo('proyectos')}>
+          Ver mis proyectos
+        </button>
+        <button className="boton-primario">Descargar CV</button>
+      </div>
+    </>
+);
+
+const TecnologiaMarquee = ({ items, reverse = false }) => (
+    <div className={`tecnologias-marquesina ${reverse ? 'marquesina-inversa' : ''}`}>
+      <div className="marquesina-track">
+        {[...items, ...items, ...items].map((tech, index) => (
+            <div
+                className={`item-tecnologia ${tech.className}`}
+                key={`${tech.nombre}-${index}`}
+            >
+              {tech.icono}
+              <span>{tech.nombre}</span>
+            </div>
+        ))}
+      </div>
+    </div>
+);
+
+const AcercaPanel = () => {
   const nombres = ['Joseph Rodriguez', 'Desarrollador Web y Mobile'];
   const textoAnimado = useTypewriter(nombres, 100, 50, 1500);
 
+  return (
+      <div className="contenedor-acerca">
+        <div className="columna-texto">
+          <h3 className="titulo-nombre">
+            {textoAnimado}
+            <span className="cursor-typewriter">|</span>
+          </h3>
+          <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
+          <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
+          <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
+          <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
+        </div>
+
+        <div className="columna-tecnologias">
+          <div className="contenedor-marquesinas">
+            <div className="grupo-tecnologias">
+              <h3 className="titulo-marquesina">Lenguajes</h3>
+              <TecnologiaMarquee items={lenguajes} />
+            </div>
+            <div className="grupo-tecnologias">
+              <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
+              <TecnologiaMarquee items={herramientas1} reverse />
+              <TecnologiaMarquee items={herramientas2} reverse />
+            </div>
+          </div>
+        </div>
+      </div>
+  );
+};
+
+const ProyectosPanel = () => (
+    <div className="grid-proyectos">
+      <div className="tarjeta-proyecto">
+        <img src="https://via.placeholder.com/150x100" alt="Calculadora" className="imagen-proyecto" />
+        <div className="info-proyecto">
+          <h3>Calculadora Kotlin</h3>
+          <p>Una simple calculadora hecha en Kotlin.</p>
+          <a href="#" className="enlace-proyecto">Ver en GitHub</a>
+        </div>
+      </div>
+      <div className="tarjeta-proyecto">
+        <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="imagen-proyecto" />
+        <div className="info-proyecto">
+          <h3>App de Notas</h3>
+          <p>Aplicación para tomar notas con persistencia local.</p>
+          <a href="#" className="enlace-proyecto">Ver en GitHub</a>
+        </div>
+      </div>
+    </div>
+);
+
+const ContactoPanel = () => (
+    <>
+      <p>Puedes encontrarme en mis redes sociales o enviarme un correo.</p>
+      <div className="enlaces-contacto">
+        <a href="#" className="enlace-proyecto">GitHub</a>
+        <a href="#" className="enlace-proyecto">LinkedIn</a>
+        <a href="#" className="enlace-proyecto">correo@ejemplo.com</a>
+      </div>
+    </>
+);
+
+
+function AppContent({ activo, setActivo }) {
   const manejarClick = (seccion) => {
     setActivo(seccion)
   }
 
   const paneles = {
-    inicio: (
-        <>
-          <img src="https://via.placeholder.com/150" alt="Avatar" className="avatar" />
-          <p>Desarrollador de Software y entusiasta de la tecnología.</p>
-          <div className="botones-inicio">
-            <button className="boton-primario" onClick={() => setActivo('proyectos')}>
-              Ver mis proyectos
-            </button>
-            <button className="boton-primario">Descargar CV</button>
-          </div>
-        </>
-    ),
-    acerca: (
-        <>
-          <div className="contenedor-acerca">
-            <div className="columna-texto">
-              <h3 className="titulo-nombre">
-                {textoAnimado}
-                <span className="cursor-typewriter">|</span>
-              </h3>
-              <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
-              <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
-              <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
-              <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
-            </div>
-
-            <div className="columna-tecnologias">
-              <div className="contenedor-marquesinas">
-                <div className="grupo-tecnologias">
-                  <h3 className="titulo-marquesina">Lenguajes</h3>
-                  <div className="tecnologias-marquesina">
-                    <div className="marquesina-track">
-                      {[...lenguajes, ...lenguajes, ...lenguajes].map((tech, index) => (
-                          <div
-                              className={`item-tecnologia ${tech.className}`}
-                              key={`${tech.nombre}-${index}`}
-                          >
-                            {tech.icono}
-                            <span>{tech.nombre}</span>
-                          </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="grupo-tecnologias">
-                  <h3 className="titulo-marquesina">IDEs y Herramientas</h3>
-                  <div className="tecnologias-marquesina marquesina-inversa">
-                    <div className="marquesina-track">
-                      {[...herramientas1, ...herramientas1, ...herramientas1].map((tech, index) => (
-                          <div
-                              className={`item-tecnologia ${tech.className}`}
-                              key={`${tech.nombre}-${index}`}
-                          >
-                            {tech.icono}
-                            <span>{tech.nombre}</span>
-                          </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="tecnologias-marquesina marquesina-inversa">
-                    <div className="marquesina-track">
-                      {[...herramientas2, ...herramientas2, ...herramientas2].map((tech, index) => (
-                          <div
-                              className={`item-tecnologia ${tech.className}`}
-                              key={`${tech.nombre}-${index}`}
-                          >
-                            {tech.icono}
-                            <span>{tech.nombre}</span>
-                          </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-    ),
-    proyectos: (
-        <>
-          <div className="grid-proyectos">
-            <div className="tarjeta-proyecto">
-              <img src="https://via.placeholder.com/150x100" alt="Calculadora" className="imagen-proyecto" />
-              <div className="info-proyecto">
-                <h3>Calculadora Kotlin</h3>
-                <p>Una simple calculadora hecha en Kotlin.</p>
-                <a href="#" className="enlace-proyecto">Ver en GitHub</a>
-              </div>
-            </div>
-            <div className="tarjeta-proyecto">
-              <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="imagen-proyecto" />
-              <div className="info-proyecto">
-                <h3>App de Notas</h3>
-                <p>Aplicación para tomar notas con persistencia local.</p>
-                <a href="#" className="enlace-proyecto">Ver en GitHub</a>
-              </div>
-            </div>
-          </div>
-        </>
-    ),
-    contacto: (
-        <>
-          <p>Puedes encontrarme en mis redes sociales o enviarme un correo.</p>
-          <div className="enlaces-contacto">
-            <a href="#" className="enlace-proyecto">GitHub</a>
-            <a href="#" className="enlace-proyecto">LinkedIn</a>
-            <a href="#" className="enlace-proyecto">correo@ejemplo.com</a>
-          </div>
-        </>
-    )
+    inicio: <InicioPanel setActivo={setActivo} />,
+    acerca: <AcercaPanel />,
+    proyectos: <ProyectosPanel />,
+    contacto: <ContactoPanel />
   };
 
   return (

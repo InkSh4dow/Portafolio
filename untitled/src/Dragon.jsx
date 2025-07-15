@@ -23,6 +23,11 @@ const colorPalettes = {
   },
 };
 
+const NUM_SEGMENTS = 40;
+const MASTER_SCALE = 0.4;
+const XMLNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
+
 const Dragon = ({ theme = 'proyectos' }) => {
   const svgRef = useRef(null);
   const animationFrameId = useRef(null);
@@ -41,34 +46,80 @@ const Dragon = ({ theme = 'proyectos' }) => {
     const wingStops = svg.querySelectorAll('#LinearGradID_1 stop');
     const spine1Stops = svg.querySelectorAll('#LinearGradID_2 stop');
     const spine2Stops = svg.querySelectorAll('#LinearGradID_3 stop');
-
     const screen = svg.querySelector('#screen');
-    if (!screen) return;
 
-    const masterScale = 0.4;
-
-    const xmlns = "http://www.w3.org/2000/svg";
-    const xlinkns = "http://www.w3.org/1999/xlink";
+    if (!screen || !headFillPath || !headStrokePath) return;
 
     let width = window.innerWidth;
     let height = window.innerHeight;
-    const N = 40;
-    const elems = [];
+    const elems = Array.from({ length: NUM_SEGMENTS }, () => ({ use: null, x: width / 2, y: 0 }));
     const pointer = { x: width / 2, y: height / 2 };
     const radm = Math.min(pointer.x, pointer.y) - 20;
     let frm = Math.random();
     let rad = 0;
 
-    // Inicializar elementos
-    for (let i = 0; i < N; i++) {
-      elems[i] = { use: null, x: width / 2, y: 0 };
-    }
-
     const prepend = (use, i) => {
-      const elem = document.createElementNS(xmlns, "use");
+      const elem = document.createElementNS(XMLNS, "use");
       elems[i].use = elem;
-      elem.setAttributeNS(xlinkns, "xlink:href", "#" + use);
+      elem.setAttributeNS(XLINKNS, "xlink:href", "#" + use);
       screen.appendChild(elem);
+    };
+
+    const updateDragonPhysics = () => {
+      let e = elems[0];
+      if (!e) return;
+
+      const ax = (Math.cos(3 * frm) * rad * width) / height;
+      const ay = (Math.sin(4 * frm) * rad * height) / width;
+      e.x += (ax + pointer.x - e.x) / 20;
+      e.y += (ay + pointer.y - e.y) / 20;
+
+      for (let i = 1; i < NUM_SEGMENTS; i++) {
+        let current = elems[i];
+        let previous = elems[i - 1];
+        if (!current?.use || !previous) continue;
+
+        const segmentSpacing = 0.1;
+        const damping = 0.25;
+        const angle = Math.atan2(current.y - previous.y, current.x - previous.x);
+        const pullX = previous.x - current.x;
+        const pullY = previous.y - current.y;
+        const pushX = Math.cos(angle) * segmentSpacing;
+        const pushY = Math.sin(angle) * segmentSpacing;
+
+        current.x += (pullX + pushX) * damping;
+        current.y += (pullY + pushY) * damping;
+
+        const s = ((162 + 4 * (1 - i)) / 50) * MASTER_SCALE;
+        current.use.setAttributeNS(
+            null,
+            "transform",
+            `translate(${(previous.x + current.x) / 2},${(previous.y + current.y) / 2}) rotate(${
+                (180 / Math.PI) * angle
+            }) scale(${s})`
+        );
+      }
+    };
+
+    const updateDragonColors = () => {
+      const currentTheme = themeRef.current;
+      const palette = colorPalettes[currentTheme] || colorPalettes.proyectos;
+      const colors = palette.gradient;
+      const numColors = colors.length;
+      const timeOffset = Math.floor(frm * 150);
+
+      headFillPath.style.fill = palette.headFill;
+      headStrokePath.style.fill = palette.headStroke;
+
+      const updateGradientStops = (stops) => {
+        stops.forEach((stop, index) => {
+          if (stop) stop.style.stopColor = colors[(timeOffset + index) % numColors];
+        });
+      };
+
+      updateGradientStops(wingStops);
+      updateGradientStops(spine1Stops);
+      updateGradientStops(spine2Stops);
     };
 
     const resize = () => {
@@ -78,84 +129,21 @@ const Dragon = ({ theme = 'proyectos' }) => {
 
     const animate = () => {
       animationFrameId.current = requestAnimationFrame(animate);
-
-      let e = elems[0];
-      if (!e) return;
-
-      const ax = (Math.cos(3 * frm) * rad * width) / height;
-      const ay = (Math.sin(4 * frm) * rad * height) / width;
-      e.x += (ax + pointer.x - e.x) / 20;
-      e.y += (ay + pointer.y - e.y) / 20;
-
-      // --- FÍSICA DE LOS SEGMENTOS REFACTORIZADA ---
-      for (let i = 1; i < N; i++) {
-        let current = elems[i];
-        let previous = elems[i - 1];
-
-        if (!current || !previous || !current.use) continue;
-
-        // Parámetros de la física
-        const segmentSpacing = 0.1; // <-- AJUSTA ESTO. Un valor más pequeño junta los segmentos.
-        const damping = 0.25;     // Suavidad del movimiento.
-
-        const angle = Math.atan2(current.y - previous.y, current.x - previous.x);
-
-        // Fuerza que tira del segmento hacia el anterior
-        const pullX = previous.x - current.x;
-        const pullY = previous.y - current.y;
-
-        // Fuerza que empuja para mantener el espaciado
-        const pushX = Math.cos(angle) * segmentSpacing;
-        const pushY = Math.sin(angle) * segmentSpacing;
-
-        // Aplicar fuerzas con suavizado (damping)
-        current.x += (pullX + pushX) * damping;
-        current.y += (pullY + pushY) * damping;
-
-        const s = ((162 + 4 * (1 - i)) / 50) * masterScale; // Aplicando el factor de escala maestro
-        current.use.setAttributeNS(
-          null,
-          "transform",
-          `translate(${(previous.x + current.x) / 2},${(previous.y + current.y) / 2}) rotate(${
-            (180 / Math.PI) * angle
-          }) scale(${s})`
-        );
-      }
-
-      // --- ANIMACIÓN DINÁMICA DE COLORES ---
-      const currentTheme = themeRef.current;
-      const palette = colorPalettes[currentTheme] || colorPalettes.proyectos;
-      const colors = palette.gradient;
-      const numColors = colors.length;
-      const timeOffset = Math.floor(frm * 150);
-
-      if (headFillPath) headFillPath.style.fill = palette.headFill;
-      if (headStrokePath) headStrokePath.style.fill = palette.headStroke;
-
-      const updateGradientStops = (stops) => {
-        stops.forEach((stop, index) => {
-          if (stop) {
-            stop.style.stopColor = colors[(timeOffset + index) % numColors];
-          }
-        });
-      };
-
-      updateGradientStops(wingStops);
-      updateGradientStops(spine1Stops);
-      updateGradientStops(spine2Stops);
-
+      updateDragonPhysics();
+      updateDragonColors();
 
       if (rad < radm) rad++;
       frm += 0.003;
 
+      // After initial "explosion", move toward center
       if (rad > 60) {
         pointer.x += (width / 2 - pointer.x) * 0.05;
         pointer.y += (height / 2 - pointer.y) * 0.05;
       }
     };
 
-    // Crear partes del dragón
-    for (let i = 1; i < N; i++) {
+    // Create dragon parts
+    for (let i = 1; i < NUM_SEGMENTS; i++) {
       if (i === 1) prepend("Cabeza", i);
       else if (i === 8 || i === 14) prepend("Aletas", i);
       else prepend("Espina", i);
@@ -164,7 +152,7 @@ const Dragon = ({ theme = 'proyectos' }) => {
     // Event listeners
     window.addEventListener("resize", resize);
 
-    // Iniciar animación
+    // Start animation
     animate();
 
     // Cleanup
