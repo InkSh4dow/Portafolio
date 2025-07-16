@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import './App.css'
 import Dragon from './Dragon'
 import { AiFillHome } from 'react-icons/ai'
-import { FaUser, FaFolderOpen, FaEnvelope } from 'react-icons/fa'
+import { FaUser, FaFolderOpen, FaEnvelope, FaGithub, FaLinkedin, FaPaperPlane } from 'react-icons/fa'
 import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea, SiWebstorm, SiAffinity } from 'react-icons/si'
 
 const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) => {
@@ -70,7 +70,7 @@ const herramientas1 = [
 const herramientas2 = [
   { nombre: 'Android Studio', icono: <SiAndroidstudio />, className: 'color-android-studio' },
   { nombre: 'IntelliJ IDEA', icono: <SiIntellijidea />, className: 'color-intellij' },
-  { nombre: 'Affinity Publisher', icono: <SiAffinity />, className: 'color-affinity' },
+  { nombre: 'Affinity Designer', icono: <SiAffinity />, className: 'color-affinity' },
 ];
 
 const InicioPanel = ({ setActivo }) => {
@@ -188,14 +188,32 @@ const ProyectosPanel = () => (
 );
 
 const ContactoPanel = () => (
-  <>
-    <p>Puedes encontrarme en mis redes sociales o enviarme un correo.</p>
-    <div className="enlaces-contacto">
-      <a href="#" className="enlace-proyecto">GitHub</a>
-      <a href="#" className="enlace-proyecto">LinkedIn</a>
-      <a href="#" className="enlace-proyecto">correo@ejemplo.com</a>
+  <div className="contacto">
+    <div className="contacto-imagen">
+      <img src="src/assets/contactoimg.jpg" alt="" />
     </div>
-  </>
+    <div className="contacto-info">
+      <h2 className="contacto-titulo">¡Conectemos y creemos algo genial!</h2>
+      <p className="contacto-mensaje">
+        ¿Tienes una idea, proyecto o simplemente quieres saludar?<br />
+        <span className="contacto-destacado">Estoy listo para nuevos retos y colaboraciones.</span>
+      </p>
+      <div className="contacto-datos">
+        <a href="#" className="contacto-enlace" title="GitHub">
+          <FaGithub /> <span>itsjrdev</span>
+        </a>
+        <a href="#" className="contacto-enlace" title="LinkedIn">
+          <FaLinkedin /> <span>Joseph Rodriguez</span>
+        </a>
+        <a href="mailto:itsjry@gmail.com" className="contacto-enlace" title="Enviar correo">
+          <FaPaperPlane /> <span>itsjry@gmail.com</span>
+        </a>
+      </div>
+      <div className="contacto-footer">
+        <span>✨ Siempre abierto a nuevas ideas y aventuras tecnológicas ✨</span>
+      </div>
+    </div>
+  </div>
 );
 
 function FondoPaneles({ activo }) {
@@ -284,3 +302,4 @@ function App() {
 }
 
 export default App
+

@@ -503,8 +503,9 @@ h1 {
   display: inline-block;
 }
 .enlace-proyecto:hover {
-  color: var(--color-primary);
-  transform: scale(1.1);
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-color-hover);
+  background: linear-gradient(135deg, var(--bg-surface-hover) 0%, #333333 100%);
 }
 
 /* === SECCIÓN CONTACTO === */
@@ -513,6 +514,124 @@ h1 {
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+/* === CONTACTO  === */
+.contacto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 1.5rem 2.5rem;
+  max-width: 800px;
+  min-width: 340px;
+  margin: 0 auto;
+  color: #fff;
+  position: relative;
+  min-height: 220px;
+}
+.contacto-imagen img {
+  width: 250px;
+  height: 250px;
+  rotate: -75deg;
+  border-radius: var(--radius-full);
+  background: #fff;
+}
+.contacto-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  flex: 1;
+}
+.contacto-titulo {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: var(--grad-blanco);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: left;
+  display: flex;
+  gap: 0.02em;
+  opacity: 1;
+  animation: rgb-text-glow 4s linear infinite;
+  align-items: center;
+}
+.contacto-mensaje {
+  font-size: 1rem;
+  text-align: left;
+  margin: 0;
+}
+.contacto-destacado {
+  color: #bb86fc;
+  font-weight: bold;
+  font-size: 1.05em;
+}
+.contacto-datos {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+.contacto-enlace {
+  font-family: Rubik, sans-serif;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-hover) 100%);
+  border-radius: var(--radius-s);
+  margin: 0 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-med);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.contacto-enlace:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-color-hover);
+  background: linear-gradient(135deg, var(--bg-surface-hover) 0%, #333333 100%);
+}
+.contacto-enlace svg {
+  font-size: 1.2em;
+  filter: drop-shadow(0 0 4px #bb86fc44);
+}
+.contacto-footer {
+  font-size: 0.95rem;
+  text-align: left;
+  margin-top: 0.7rem;
+}
+
+/* Responsive para contacto creativo */
+@media (max-width: 900px) {
+  .contacto {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+    padding: 1.2rem 0.5rem;
+    max-width: 98vw;
+    min-width: unset;
+  }
+  .contacto-datos {
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .contacto-info {
+    align-items: flex-start;
+  }
+  .contacto-titulo, .contacto-mensaje, .contacto-footer {
+    text-align: left;
+  }
 }
 
 /* === NAVEGACIÓN INFERIOR === */
