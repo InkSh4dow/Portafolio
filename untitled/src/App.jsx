@@ -74,7 +74,6 @@ const herramientas2 = [
 ];
 
 const InicioPanel = ({ setActivo }) => {
-  // Animación de escritura para el título de inicio
   const titulos = useMemo(() => ['Hello world', 'Hola mundo'], []);
   const tituloAnimado = useTypewriter(titulos, 100, 50, 1500);
 
@@ -272,12 +271,9 @@ function AppContent({ activo, setActivo }) {
 
   return (
     <>
-      {/* El fondo ahora se renderiza fuera, en el componente superior */}
-      {/* Dragon va después del fondo */}
       <div className={`titulo-flotante ${bordesSeccion[activo]}`}>
         <h2>{nombresSeccion[activo]}</h2>
       </div>
-      {/* Panel de contenido (textos, botones, tecnologías) */}
       <div className="paneles-contenido-superior">
         {Object.keys(nombresSeccion).map((seccionKey) => (
           <div
@@ -319,11 +315,9 @@ function App() {
   return (
     <>
       <FondoPaneles activo={activo} />
-      {/* Dragon encima del fondo */}
       <div className="dragon-container">
         <Dragon theme={activo} />
       </div>
-      {/* Textos, botones y barra de tecnologías */}
       <AppContent activo={activo} setActivo={setActivo} />
     </>
   );
