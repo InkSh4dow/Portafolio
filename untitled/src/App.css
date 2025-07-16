@@ -14,8 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Paleta de colores principal */
-  --color-primary: #bb86fc;
-  --color-primary-hover: #a36ef4;
   --bg-main: #121212;
   --bg-surface: #1e1e1e;
   --bg-surface-hover: #2a2a2a;
@@ -219,16 +217,25 @@ h1 {
   display: flex;
   gap: 0.02em;
   opacity: 1;
-  animation: rgb-text-glow-titulo-inicio 4s linear infinite;
+  animation: rgb-text-glow 4s linear infinite;
   align-items: center;
 }
+/* RGB gradient for the title in the contacts section */
+.contacto-info .titulo-inicio-rgb {
+  background: var(--grad-blanco);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rgb-text-glow 4s linear infinite;
+}
 .cursor-typewriter {
-  color: #fff;
+  color: #ffffff;
   font-size: 1em;
   font-weight: bold;
   margin-left: 4px;
   animation: blink 1s steps(1) infinite;
-  text-shadow: 0 0 8px #ff4d4d, 0 0 2px #fff;
+  text-shadow: 0 0 8px #ffffff, 0 0 2px #fff;
 }
 .mini-descripcion {
   font-size: 1.1rem;
@@ -524,19 +531,24 @@ h1 {
   justify-content: center;
   gap: 2.5rem;
   padding: 1.5rem 2.5rem;
-  max-width: 800px;
+  max-width: 1000px;
   min-width: 340px;
   margin: 0 auto;
   color: #fff;
   position: relative;
-  min-height: 220px;
+  min-height: 320px;
 }
 .contacto-imagen img {
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
   rotate: -75deg;
-  border-radius: var(--radius-full);
+  border-radius: 70% 30% 50% 40% / 50% 60% 30% 60%;
   background: #fff;
+  transition: border-radius 0.5s ease;
+}
+
+.contacto-imagen img:hover {
+  border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
 }
 .contacto-info {
   display: flex;
@@ -550,7 +562,7 @@ h1 {
   font-size: 2.2rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  background: var(--grad-blanco);
+  background: var(--grad-blancoa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -567,7 +579,7 @@ h1 {
   margin: 0;
 }
 .contacto-destacado {
-  color: #bb86fc;
+  color: #ffffff;
   font-weight: bold;
   font-size: 1.05em;
 }
@@ -603,12 +615,40 @@ h1 {
 }
 .contacto-enlace svg {
   font-size: 1.2em;
-  filter: drop-shadow(0 0 4px #bb86fc44);
 }
 .contacto-footer {
   font-size: 0.95rem;
   text-align: left;
   margin-top: 0.7rem;
+}
+
+/* Notificación de copiado al portapapeles */
+.notificacion-clipboard {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(224, 224, 224, 0.5);
+  backdrop-filter: blur(12px);
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 24px rgba(80,80,80,0.10);
+  z-index: 1000;
+  font-weight: 500;
+  animation: fadeInOut 3s ease-in-out;
+  pointer-events: none;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  15% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
 /* Responsive para contacto creativo */

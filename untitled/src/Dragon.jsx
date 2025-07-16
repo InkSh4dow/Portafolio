@@ -9,7 +9,7 @@ const colorPalettes = {
   acerca: { // Azul
     headFill: '#a7d8de',
     headStroke: '#2a3d8f',
-    gradient: ['#5e72e4', '#007bff', '#89cff0', '#bb86fc', '#5c2c9d', '#5e72e4'],
+    gradient: ['#5e72e4', '#007bff', '#89cff0', '#00bfff', '#1e90ff', '#5e72e4'],
   },
   proyectos: { // Verde
     headFill: '#c1fba4',

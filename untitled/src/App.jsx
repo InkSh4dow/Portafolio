@@ -187,34 +187,62 @@ const ProyectosPanel = () => (
   </div>
 );
 
-const ContactoPanel = () => (
-  <div className="contacto">
-    <div className="contacto-imagen">
-      <img src="src/assets/contactoimg.jpg" alt="" />
-    </div>
-    <div className="contacto-info">
-      <h2 className="contacto-titulo">¡Conectemos y creemos algo genial!</h2>
-      <p className="contacto-mensaje">
-        ¿Tienes una idea, proyecto o simplemente quieres saludar?<br />
-        <span className="contacto-destacado">Estoy listo para nuevos retos y colaboraciones.</span>
-      </p>
-      <div className="contacto-datos">
-        <a href="#" className="contacto-enlace" title="GitHub">
-          <FaGithub /> <span>itsjrdev</span>
-        </a>
-        <a href="#" className="contacto-enlace" title="LinkedIn">
-          <FaLinkedin /> <span>Joseph Rodriguez</span>
-        </a>
-        <a href="mailto:itsjry@gmail.com" className="contacto-enlace" title="Enviar correo">
-          <FaPaperPlane /> <span>itsjry@gmail.com</span>
-        </a>
+const ContactoPanel = () => {
+  const [showNotification, setShowNotification] = useState(false);
+
+  // Animación de escritura para el título de contacto
+  const titulos = useMemo(() => ['¡Creemos algo genial!'], []);
+  const tituloAnimado = useTypewriter(titulos, 100, 50, 1500);
+
+  const copyEmailToClipboard = () => {
+    const email = "itsjry@gmail.com";
+    navigator.clipboard.writeText(email)
+      .then(() => {
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000); // Hide after 3 seconds
+      })
+      .catch(err => {
+        console.error('Error al copiar al portapapeles: ', err);
+      });
+  };
+
+  return (
+    <div className="contacto">
+      <div className="contacto-imagen">
+        <img src="src/assets/contactoimg.jpg" alt="" />
       </div>
-      <div className="contacto-footer">
-        <span>✨ Siempre abierto a nuevas ideas y aventuras tecnológicas ✨</span>
+      <div className="contacto-info">
+        <h2 className="titulo-inicio-rgb">
+          {tituloAnimado}
+          <span className="cursor-typewriter">|</span>
+        </h2>
+        <p className="contacto-mensaje">
+          ¿Tienes una idea, proyecto o simplemente quieres saludar?<br />
+          <span className="contacto-destacado">Estoy listo para nuevos retos y colaboraciones.</span>
+        </p>
+        <div className="contacto-datos">
+          <a href="#" className="contacto-enlace" title="GitHub">
+            <FaGithub /> <span>itsjrdev</span>
+          </a>
+          <a href="https://www.linkedin.com/in/joseph-rodriguez-701781364/" className="contacto-enlace" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin /> <span>Joseph Rodriguez</span>
+          </a>
+          <button onClick={copyEmailToClipboard} className="contacto-enlace" title="Copiar correo">
+            <FaPaperPlane /> <span>itsjry@gmail.com</span>
+          </button>
+        </div>
+        <div className="contacto-footer">
+          <span>✨ Siempre abierto a nuevas ideas y aventuras tecnológicas ✨</span>
+        </div>
       </div>
+      {showNotification && (
+        <div className="notificacion-clipboard">
+          Guardado en el portapapeles
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 function FondoPaneles({ activo }) {
   useEffect(() => {
@@ -302,4 +330,3 @@ function App() {
 }
 
 export default App
-
