@@ -79,7 +79,7 @@ const InicioPanel = ({ setActivo }) => {
 
   return (
     <div className="contenedor-inicio">
-      <img src="https://via.placeholder.com/300" alt="Avatar" className="avatar avatar-sin-sombra" />
+      <img src="src/assets/contactoimg.jpg" alt="Imagen" className="imagen-inicio" />
       <div className="info-inicio">
         <h1 className="titulo-inicio-rgb">
           {tituloAnimado}
