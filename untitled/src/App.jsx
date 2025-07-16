@@ -74,7 +74,7 @@ const herramientas2 = [
 ];
 
 const InicioPanel = ({ setActivo }) => {
-  const titulos = useMemo(() => ['Hello world', 'Hola mundo'], []);
+  const titulos = useMemo(() => ['Hello World', 'Hola Mundo'], []);
   const tituloAnimado = useTypewriter(titulos, 100, 50, 1500);
 
   return (
@@ -86,7 +86,7 @@ const InicioPanel = ({ setActivo }) => {
           <span className="cursor-typewriter">|</span>
         </h1>
         <div className="mini-descripcion">
-          Hola. Soy Joseph Rodriguez, enfocado en diseñar y construir software que se vea bien y que le guste a los demás. Conoce los proyectos que he desarrollado.
+          Hola. Soy Joseph Rodriguez, enfocado en diseñar y construir software que se vea bien y que le guste a los demás. Conoce los proyectos que he desarrollado
         </div>
         <div className="botones-inicio">
           <button
@@ -132,10 +132,10 @@ const AcercaPanel = () => {
           {textoAnimado}
           <span className="cursor-typewriter">|</span>
         </h3>
-        <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas.</p>
-        <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile.</p>
-        <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario.</p>
-        <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa.</p>
+        <p className="parrafo-izquierda">Apasionado por Kotlin, Android y el desarrollo web, siempre busco aplicar las mejores prácticas para crear aplicaciones escalables, eficientes y bien estructuradas</p>
+        <p className="parrafo-derecha">Estoy en formación constante, aprendiendo nuevas herramientas, frameworks y tecnologías para crecer como desarrollador mobile</p>
+        <p className="parrafo-izquierda">Mi objetivo es construir apps útiles, intuitivas y visualmente atractivas, enfocadas en una buena experiencia de usuario</p>
+        <p className="parrafo-derecha">Me gusta trabajar con orden, código limpio y una mentalidad enfocada en resolver problemas de forma práctica y creativa</p>
       </div>
       <div className="columna-tecnologias">
         <div className="contenedor-marquesinas">
@@ -231,7 +231,7 @@ const ContactoPanel = () => {
           </button>
         </div>
         <div className="contacto-footer">
-          <span>✨ Siempre abierto a nuevas ideas y aventuras tecnológicas ✨</span>
+          <span>Siempre abierto a nuevas ideas y aventuras tecnológicas </span>
         </div>
       </div>
       {showNotification && (

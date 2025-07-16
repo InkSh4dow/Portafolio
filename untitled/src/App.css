@@ -664,7 +664,6 @@ h1 {
   background: rgba(224, 224, 224, 0.5);
   backdrop-filter: blur(12px);
   border-radius: 30px;
-  box-shadow: 0 4px 24px rgba(80,80,80,0.10);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -708,10 +707,11 @@ h1 {
   padding: 0 1rem;
 }
 .item-navegacion.activo {
-  background: rgba(200, 200, 200, 0.5);
+  background: rgb(34, 34, 34);
 }
+/* 222222FF*/
 .item-navegacion.activo .icono-navegacion {
-  color: #222;
+  color: rgba(176, 176, 176, 0.5);
 }
 .icono-navegacion {
   font-size: 1.5rem;
