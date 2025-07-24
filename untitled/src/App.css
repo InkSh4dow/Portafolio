@@ -278,7 +278,7 @@ h1 {
   justify-content: flex-start;
 }
 
-.boton-inicio-animado {
+.inicio-boton {
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-s);
@@ -289,15 +289,15 @@ h1 {
   cursor: pointer;
   transition: var(--transition-fast);
 }
-.boton-inicio-animado:hover,
-.boton-inicio-animado:focus {
+.inicio-boton:hover,
+.inicio-boton:focus {
   transform: translateY(-2px) scale(1.05);
   border-color: var(--border-color-hover);
   background: var(--grad-hover);
   color: #fff;
   z-index: 2;
 }
-.boton-inicio-animado:active {
+.inicio-boton:active {
   transform: scale(0.98);
 }
 
@@ -405,7 +405,9 @@ h1 {
   from { transform: translateX(0); }
   to { transform: translateX(-33.33%); }
 }
-.item-tecnologia {
+
+/* Bloques de tecnología: estilos individuales */
+.tecnologia-bloque {
   font-family: Rubik, sans-serif;
   display: flex;
   flex-shrink: 0;
@@ -424,7 +426,7 @@ h1 {
   overflow: hidden;
   cursor: pointer;
 }
-.item-tecnologia::before {
+.tecnologia-bloque::before {
   content: '';
   position: absolute;
   top: 0;
@@ -434,48 +436,100 @@ h1 {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.5s ease;
 }
-.item-tecnologia:hover {
+.tecnologia-bloque:hover {
   transform: translateY(-2px) scale(1.05);
   border-color: var(--border-color-hover);
   background: var(--grad-hover);
 }
-.item-tecnologia:hover::before {
+.tecnologia-bloque:hover::before {
   left: 100%;
 }
-.item-tecnologia:hover svg {
-  transform: scale(1.1) rotate(5deg);
-}
-.item-tecnologia:hover span {
-  color: #ffffff;
-}
-.item-tecnologia svg {
+.tecnologia-bloque svg {
   font-size: 1.3rem;
   transition: var(--transition-med);
 }
-.item-tecnologia span {
+.tecnologia-bloque span {
   transition: color 0.3s ease;
   font-weight: 600;
 }
-.item-tecnologia.color-html svg { color: var(--color-html); }
-.item-tecnologia.color-html:hover svg { color: var(--color-html-hover); }
-.item-tecnologia.color-css svg { color: var(--color-css); }
-.item-tecnologia.color-css:hover svg { color: var(--color-css-hover); }
-.item-tecnologia.color-js svg { color: var(--color-js); }
-.item-tecnologia.color-js:hover svg { color: var(--color-js-hover); }
-.item-tecnologia.color-kotlin svg { color: var(--color-kotlin); }
-.item-tecnologia.color-kotlin:hover svg { color: var(--color-kotlin-hover); }
-.item-tecnologia.color-git svg { color: var(--color-git); }
-.item-tecnologia.color-git:hover svg { color: var(--color-git-hover); }
-.item-tecnologia.color-github svg { color: var(--color-github); }
-.item-tecnologia.color-github:hover svg { color: var(--color-github-hover); }
-.item-tecnologia.color-android-studio svg { color: var(--color-android-studio); }
-.item-tecnologia.color-android-studio:hover svg { color: var(--color-android-studio-hover); }
-.item-tecnologia.color-intellij svg { color: var(--color-intellij); }
-.item-tecnologia.color-intellij:hover svg { color: var(--color-intellij-hover); }
-.item-tecnologia.color-webstorm svg { color: var(--color-webstorm); }
-.item-tecnologia.color-webstorm:hover svg { color: var(--color-webstorm-hover); }
-.item-tecnologia.color-affinity svg { color: var(--color-affinity); }
-.item-tecnologia.color-affinity:hover svg { color: var(--color-affinity-hover); }
+.tecnologia-bloque:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+.tecnologia-bloque:hover span {
+  color: #ffffff;
+}
+.tecnologia-bloque.color-html svg { color: var(--color-html); }
+.tecnologia-bloque.color-html:hover svg { color: var(--color-html-hover); }
+.tecnologia-bloque.color-css svg { color: var(--color-css); }
+.tecnologia-bloque.color-css:hover svg { color: var(--color-css-hover); }
+.tecnologia-bloque.color-js svg { color: var(--color-js); }
+.tecnologia-bloque.color-js:hover svg { color: var(--color-js-hover); }
+.tecnologia-bloque.color-kotlin svg { color: var(--color-kotlin); }
+.tecnologia-bloque.color-kotlin:hover svg { color: var(--color-kotlin-hover); }
+.tecnologia-bloque.color-git svg { color: var(--color-git); }
+.tecnologia-bloque.color-git:hover svg { color: var(--color-git-hover); }
+.tecnologia-bloque.color-github svg { color: var(--color-github); }
+.tecnologia-bloque.color-github:hover svg { color: var(--color-github-hover); }
+.tecnologia-bloque.color-android-studio svg { color: var(--color-android-studio); }
+.tecnologia-bloque.color-android-studio:hover svg { color: var(--color-android-studio-hover); }
+.tecnologia-bloque.color-intellij svg { color: var(--color-intellij); }
+.tecnologia-bloque.color-intellij:hover svg { color: var(--color-intellij-hover); }
+.tecnologia-bloque.color-webstorm svg { color: var(--color-webstorm); }
+.tecnologia-bloque.color-webstorm:hover svg { color: var(--color-webstorm-hover); }
+.tecnologia-bloque.color-affinity svg { color: var(--color-affinity); }
+.tecnologia-bloque.color-affinity:hover svg { color: var(--color-affinity-hover); }
+
+/* Bloques de contacto: estilos individuales */
+.contacto-bloque {
+  font-family: Rubik, sans-serif;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  background: var(--grad-surface);
+  border-radius: var(--radius-s);
+  margin: 0 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-med);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.contacto-bloque::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+.contacto-bloque:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-color-hover);
+  background: var(--grad-hover);
+}
+.contacto-bloque:hover::before {
+  left: 100%;
+}
+.contacto-bloque svg {
+  font-size: 1.2em;
+  transition: var(--transition-med);
+}
+.contacto-bloque span {
+  transition: color 0.3s ease;
+  font-weight: 600;
+}
+
+/* Elimina las clases antiguas para evitar solapamientos */
+.bloque-tecnologia { /* ...eliminado... */ }
+.bloque-contacto { /* ...eliminado... */ }
+.boton-inicio-animado { /* ...eliminado... */ }
 
 .grid-proyectos {
   display: flex;

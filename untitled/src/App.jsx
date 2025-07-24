@@ -90,13 +90,13 @@ const InicioPanel = ({ setActivo }) => {
         </div>
         <div className="botones-inicio">
           <button
-            className="item-tecnologia boton-inicio-animado"
+            className="inicio-boton"
             onClick={() => setActivo('proyectos')}
             type="button"
           >
             Ver mis proyectos
           </button>
-          <button className="item-tecnologia boton-inicio-animado" type="button">
+          <button className="inicio-boton" type="button">
             Descargar CV
           </button>
         </div>
@@ -110,7 +110,7 @@ const TecnologiaMarquee = ({ items, reverse = false }) => (
     <div className="marquesina-track">
       {[...items, ...items, ...items].map((tech, index) => (
         <div
-          className={`item-tecnologia ${tech.className}`}
+          className={`tecnologia-bloque ${tech.className}`}
           key={`${tech.nombre}-${index}`}
         >
           {tech.icono}
@@ -220,13 +220,13 @@ const ContactoPanel = () => {
           <span className="contacto-destacado">Estoy listo para nuevos retos y colaboraciones.</span>
         </p>
         <div className="contacto-datos">
-          <a href="https://github.com/InkSh4dow" className="contacto-enlace" title="GitHub" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/InkSh4dow" className="contacto-bloque" title="GitHub" target="_blank" rel="noopener noreferrer">
             <FaGithub /> <span>InkSh4dow</span>
           </a>
-          <a href="https://www.linkedin.com/in/joseph-rodriguez-701781364/" className="contacto-enlace" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/joseph-rodriguez-701781364/" className="contacto-bloque" title="LinkedIn" target="_blank" rel="noopener noreferrer">
             <FaLinkedin /> <span>Joseph Rodriguez</span>
           </a>
-          <button onClick={copyEmailToClipboard} className="contacto-enlace" title="Copiar correo">
+          <button onClick={copyEmailToClipboard} className="contacto-bloque" title="Copiar correo">
             <FaPaperPlane /> <span>itsjry@gmail.com</span>
           </button>
         </div>
