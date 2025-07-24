@@ -220,8 +220,8 @@ const ContactoPanel = () => {
           <span className="contacto-destacado">Estoy listo para nuevos retos y colaboraciones.</span>
         </p>
         <div className="contacto-datos">
-          <a href="#" className="contacto-enlace" title="GitHub">
-            <FaGithub /> <span>itsjrdev</span>
+          <a href="https://github.com/InkSh4dow" className="contacto-enlace" title="GitHub" target="_blank" rel="noopener noreferrer">
+            <FaGithub /> <span>InkSh4dow</span>
           </a>
           <a href="https://www.linkedin.com/in/joseph-rodriguez-701781364/" className="contacto-enlace" title="LinkedIn" target="_blank" rel="noopener noreferrer">
             <FaLinkedin /> <span>Joseph Rodriguez</span>
