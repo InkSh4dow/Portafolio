@@ -63,6 +63,7 @@
   --color-affinity-hover: #4d93d6;
 }
 
+/* --- Reset y base --- */
 body {
   margin: 0;
   place-items: center;
@@ -70,18 +71,17 @@ body {
   min-height: 100vh;
   background-color: var(--bg-main);
 }
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
 #root {
   max-width: 1280px;
   padding: 0 1rem;
   text-align: center;
 }
 
+/* --- Título flotante --- */
 .titulo-flotante {
   font-family: Rubik, sans-serif;
   position: fixed;
@@ -111,6 +111,7 @@ h1 {
   backdrop-filter: blur(12px);
 }
 
+/* --- Fondo paneles --- */
 .contenedor-paneles {
   position: fixed;
   inset: 0;
@@ -152,6 +153,7 @@ h1 {
   pointer-events: none;
 }
 
+/* --- Paneles contenido --- */
 .paneles-contenido-superior {
   position: fixed;
   inset: 0;
@@ -194,6 +196,7 @@ h1 {
   min-width: 320px;
 }
 
+/* --- Panel Inicio --- */
 .contenedor-inicio {
   display: flex;
   align-items: center;
@@ -265,7 +268,6 @@ h1 {
   flex-shrink: 0;
   object-fit: cover;
 }
-/* Animación hover igual que contacto */
 .imagen-inicio:hover {
   border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
 }
@@ -301,6 +303,7 @@ h1 {
   transform: scale(0.98);
 }
 
+/* --- Panel Acerca --- */
 .contenedor-acerca {
   display: flex;
   width: 100%;
@@ -358,7 +361,6 @@ h1 {
   0%, 100% { background-position: 0 50%; }
   50% { background-position: 100% 50%; }
 }
-
 .contenedor-marquesinas {
   display: flex;
   flex-direction: column;
@@ -406,7 +408,7 @@ h1 {
   to { transform: translateX(-33.33%); }
 }
 
-/* Bloques de tecnología: estilos individuales */
+/* --- Bloques de tecnología --- */
 .tecnologia-bloque {
   font-family: Rubik, sans-serif;
   display: flex;
@@ -479,7 +481,7 @@ h1 {
 .tecnologia-bloque.color-affinity svg { color: var(--color-affinity); }
 .tecnologia-bloque.color-affinity:hover svg { color: var(--color-affinity-hover); }
 
-/* Bloques de contacto: estilos individuales */
+/* --- Bloques de contacto --- */
 .contacto-bloque {
   font-family: Rubik, sans-serif;
   display: flex;
@@ -526,11 +528,7 @@ h1 {
   font-weight: 600;
 }
 
-/* Elimina las clases antiguas para evitar solapamientos */
-.bloque-tecnologia { /* ...eliminado... */ }
-.bloque-contacto { /* ...eliminado... */ }
-.boton-inicio-animado { /* ...eliminado... */ }
-
+/* --- Panel Proyectos --- */
 .grid-proyectos {
   display: flex;
   flex-direction: row;
@@ -577,6 +575,7 @@ h1 {
   background: var(--grad-hover);
 }
 
+/* --- Panel Contacto --- */
 .contacto {
   display: flex;
   flex-direction: row;
@@ -625,40 +624,13 @@ h1 {
   gap: 1.5rem;
   margin-top: 0.5rem;
 }
-.contacto-enlace {
-  font-family: Rubik, sans-serif;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1rem;
-  background: var(--grad-surface);
-  border-radius: var(--radius-s);
-  margin: 0 0.3rem;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  font-weight: 500;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-med);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.contacto-enlace:hover {
-  transform: translateY(-2px) scale(1.05);
-  border-color: var(--border-color-hover);
-  background: var(--grad-hover);
-}
-.contacto-enlace svg {
-  font-size: 1.2em;
-}
 .contacto-footer {
   font-size: 0.95rem;
   text-align: left;
   margin-top: 0.7rem;
 }
 
-/* Notificación de copiado al portapapeles */
+/* --- Notificación clipboard --- */
 .notificacion-clipboard {
   position: fixed;
   bottom: 100px;
@@ -687,7 +659,7 @@ h1 {
   100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
-/* Responsive para contacto creativo */
+/* --- Responsive --- */
 @media (max-width: 900px) {
   .contacto {
     flex-direction: column;
