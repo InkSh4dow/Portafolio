@@ -207,11 +207,8 @@ const ProyectosPanel = () => (
           </p>
         </div>
       </div>
-      <div className="especial-creativo">
-        <span className="especial-emoji">💡</span>
-        <div className="especial-barra-animada">
-          <div className="especial-barra-progreso"></div>
-        </div>
+      <div className="especial-barra-animada especial-barra-verde">
+        <div className="especial-barra-progreso"></div>
       </div>
     </div>
   </div>
