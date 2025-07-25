@@ -156,33 +156,38 @@ const AcercaPanel = () => {
 
 const ProyectosPanel = () => (
   <div className="grid-proyectos">
-    {[
-      {
-        img: "https://via.placeholder.com/150x100",
-        alt: "Calculadora",
-        titulo: "Calculadora Kotlin",
-        desc: "Una simple calculadora hecha en Kotlin.",
-        link: "#"
-      },
-      {
-        img: "https://via.placeholder.com/150x100",
-        alt: "App de Notas",
-        titulo: "App de Notas",
-        desc: "Aplicación para tomar notas con persistencia local.",
-        link: "#"
-      }
-    ].map((proy, i) => (
-      <div className="tarjeta-proyecto" key={i}>
-        <img src={proy.img} alt={proy.alt} className="imagen-proyecto" />
-        <div className="info-proyecto">
-          <h3>{proy.titulo}</h3>
-          <p>{proy.desc}</p>
-          <a href={proy.link} className="enlace-proyecto" title="Ver en GitHub">
-            <SiGithub />
-          </a>
+    {/* Tarjeta Calculadora Kotlin */}
+    <div className="tarjeta-proyecto-calculadora">
+      <div className="calcu-barra-superior">
+        <img src="src/assets/CalculadoraIcono.png" alt="Icono Calculadora" className="img-calculadora-icono" />
+        <h3 className="calcu-nombre">Calculadora Kotlin</h3>
+        <div className="calcu-barra-espaciador" />
+        <a href="#" className="enlace-proyecto-calculadora" title="Ver en GitHub">
+          <SiGithub />
+        </a>
+      </div>
+      <div className="contenido-proyecto-calculadora">
+        <div className="calcu-info">
+          <div className="calcu-descripcion">
+            <p>Una simple calculadora hecha en Kotlin.</p>
+          </div>
+        </div>
+        <div className="calcu-imagen">
+          <img src="src/assets/CalculadoraUi.jpeg" alt="UI Calculadora" className="img-calculadora-ui" />
         </div>
       </div>
-    ))}
+    </div>
+    {/* Tarjeta App de Notas */}
+    <div className="tarjeta-proyecto-notas">
+      <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="img-notas" />
+      <div className="info-proyecto-notas">
+        <h3>App de Notas</h3>
+        <p>Aplicación para tomar notas con persistencia local.</p>
+        <a href="#" className="enlace-proyecto-notas" title="Ver en GitHub">
+          <SiGithub />
+        </a>
+      </div>
+    </div>
   </div>
 );
 
