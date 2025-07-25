@@ -157,7 +157,7 @@ const AcercaPanel = () => {
 const ProyectosPanel = () => (
   <div className="grid-proyectos">
     {/* Tarjeta Calculadora Kotlin */}
-    <div className="tarjeta-proyecto-calculadora">
+    <div className="tarjeta-proyecto-calculadora tarjeta-proyecto-blur">
       <div className="calcu-barra-superior">
         <img src="src/assets/CalculadoraIcono.png" alt="Icono Calculadora" className="img-calculadora-icono" />
         <h3 className="calcu-nombre">Calculadora Kotlin</h3>
@@ -167,8 +167,8 @@ const ProyectosPanel = () => (
         </a>
       </div>
       <div className="contenido-proyecto-calculadora">
-        <div className="calcu-info">
-          <div className="calcu-descripcion">
+        <div className="calcu-info calcu-info-izquierda">
+          <div className="calcu-descripcion calcu-descripcion-izquierda">
             <p>Una simple calculadora hecha en Kotlin.</p>
           </div>
         </div>
@@ -178,14 +178,24 @@ const ProyectosPanel = () => (
       </div>
     </div>
     {/* Tarjeta App de Notas */}
-    <div className="tarjeta-proyecto-notas">
-      <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="img-notas" />
-      <div className="info-proyecto-notas">
-        <h3>App de Notas</h3>
-        <p>Aplicación para tomar notas con persistencia local.</p>
+    <div className="tarjeta-proyecto-notas tarjeta-proyecto-blur">
+      <div className="calcu-barra-superior">
+        <img src="https://via.placeholder.com/32x32" alt="Icono Notas" className="img-calculadora-icono" />
+        <h3 className="calcu-nombre">App de Notas</h3>
+        <div className="calcu-barra-espaciador" />
         <a href="#" className="enlace-proyecto-notas" title="Ver en GitHub">
           <SiGithub />
         </a>
+      </div>
+      <div className="contenido-proyecto-calculadora">
+        <div className="calcu-info calcu-info-izquierda">
+          <div className="calcu-descripcion calcu-descripcion-izquierda">
+            <p>Aplicación para tomar notas con persistencia local.</p>
+          </div>
+        </div>
+        <div className="calcu-imagen">
+          <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="img-calculadora-ui" />
+        </div>
       </div>
     </div>
   </div>

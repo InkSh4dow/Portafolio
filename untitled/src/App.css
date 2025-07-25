@@ -600,15 +600,29 @@ h1 {
 .calcu-info {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
   width: 67%;
   gap: 0.5rem;
+  height: 100%;
+  text-align: left;
+}
+
+.calcu-info-derecha {
+  justify-content: center;
+  align-items: flex-end;
+  text-align: left;
+  height: 100%;
 }
 
 .calcu-descripcion {
   margin-top: 0.3rem;
   font-size: 0.95rem;
   color: var(--text-secondary);
+}
+
+.calcu-descripcion-derecha {
+  text-align: left;
 }
 
 .calcu-imagen {
@@ -618,23 +632,15 @@ h1 {
   justify-content: center;
   min-width: 0;
 }
+
 .img-calculadora-ui {
   max-width: 100%;
   height: auto;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 0;
   flex-shrink: 0;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   background: #fff;
-}
-.img-calculadora-icono {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  border-radius: 8px;
-  background: #fff;
-  padding: 2px;
-  flex-shrink: 0;
 }
 
 /* Tarjeta Notas */
@@ -646,36 +652,10 @@ h1 {
   text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-  width: 220px;
-  flex-shrink: 0;
+  align-items: stretch;
   min-height: 110px;
 }
-.img-notas {
-  width: 100%;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-.info-proyecto-notas {
-  display: flex;
-  flex-direction: column;
-}
-.enlace-proyecto-notas {
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  transition: var(--transition-fast);
-  display: inline-block;
-}
-.enlace-proyecto-notas:hover {
-  transform: translateY(-2px) scale(1.05);
-  border-color: var(--border-color-hover);
-  background: var(--grad-hover);
-}
 
-/* --- Panel Contacto --- */
 .contacto {
   display: flex;
   flex-direction: row;
@@ -915,4 +895,65 @@ h1 {
   .columna-tecnologias {
     padding-left: 3rem;
   }
+}
+
+/* Tarjeta con fondo blur */
+.tarjeta-proyecto-blur {
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 4px 24px rgba(80,80,80,0.10);
+}
+
+/* Tarjeta Calculadora y Notas */
+.tarjeta-proyecto-calculadora,
+.tarjeta-proyecto-notas {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 0.7rem;
+  border-radius: var(--radius-m);
+  text-align: left;
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 110px;
+}
+
+.contenido-proyecto-calculadora {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.calcu-info,
+.calcu-info-izquierda {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 67%;
+  gap: 0.5rem;
+  height: 100%;
+  text-align: left;
+}
+
+.calcu-descripcion,
+.calcu-descripcion-izquierda {
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+.img-calculadora-ui {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  background: #fff;
 }
