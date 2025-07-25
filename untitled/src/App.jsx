@@ -198,6 +198,16 @@ const ProyectosPanel = () => (
         </div>
       </div>
     </div>
+    {/* Tarjeta Desarrollando algo especial */}
+    <div className="tarjeta-proyecto-especial tarjeta-proyecto-blur">
+      <div className="contenido-proyecto-especial">
+        <div className="especial-info">
+          <p className="especial-descripcion">
+            Desarrollando algo especial
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
