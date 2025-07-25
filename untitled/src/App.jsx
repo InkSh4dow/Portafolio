@@ -162,7 +162,13 @@ const ProyectosPanel = () => (
         <img src="src/assets/CalculadoraIcono.png" alt="Icono Calculadora" className="img-calculadora-icono" />
         <h3 className="calcu-nombre">Calculadora Kotlin</h3>
         <div className="calcu-barra-espaciador" />
-        <a href="#" className="enlace-proyecto-calculadora" title="Ver en GitHub">
+        <a
+          href="https://github.com/InkSh4dow/AppCalculadora"
+          className="enlace-proyecto-calculadora"
+          title="Ver en GitHub"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <SiGithub />
         </a>
       </div>
@@ -183,7 +189,13 @@ const ProyectosPanel = () => (
         <img src="https://via.placeholder.com/32x32" alt="Icono Notas" className="img-calculadora-icono" />
         <h3 className="calcu-nombre">App de Notas</h3>
         <div className="calcu-barra-espaciador" />
-        <a href="#" className="enlace-proyecto-notas" title="Ver en GitHub">
+        <a
+          href="#"
+          className="enlace-proyecto-notas"
+          title="Ver en GitHub"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <SiGithub />
         </a>
       </div>
