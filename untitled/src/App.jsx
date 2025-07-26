@@ -47,9 +47,16 @@ const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 200
       }
     } else {
       if (state.txt.length > 0) {
-        timer = setTimeout(() => setState(s => ({ ...s, txt: s.txt.slice(0, -1) })), deleteSpeed)
+        timer = setTimeout(() => setState(s => ({
+          ...s,
+          txt: s.txt.slice(0, -1)
+        })), deleteSpeed)
       } else {
-        setState(s => ({ idx: (s.idx + 1) % words.length, txt: '', del: false }))
+        setState(s => ({
+          idx: (s.idx + 1) % words.length,
+          txt: '',
+          del: false
+        }))
       }
     }
     return () => clearTimeout(timer)
@@ -329,7 +336,7 @@ function App() {
     <>
       <FondoPaneles activo={activo} />
       <div className="dragon-container">
-        <Dragon theme={activo} />
+        <Dragon theme={String(activo)} />
       </div>
       <AppContent activo={activo} setActivo={setActivo} />
     </>
