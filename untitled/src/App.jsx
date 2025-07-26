@@ -72,7 +72,8 @@ function InicioPanel({ setActivo }) {
         </div>
         <div className="botones-inicio">
           <button className="inicio-boton" onClick={() => setActivo('proyectos')}>Ver mis proyectos</button>
-          <button className="inicio-boton">Descargar CV</button>
+          {/* <button className="inicio-boton">Descargar CV</button> */}
+          {/* EN DESARROLLO */}
         </div>
       </div>
     </div>
