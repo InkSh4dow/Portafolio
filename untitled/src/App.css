@@ -728,6 +728,15 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   height: 48px;
   overflow: hidden;
 }
+
+.item-navegacion.activo {
+  background: rgb(34, 34, 34);
+}
+.item-navegacion.activo .icono-navegacion,
+.item-navegacion.activo .etiqueta-navegacion {
+  color: rgba(176, 176, 176, 0.5); /* Color claro para texto e icono en el botón activo */
+}
+
 .item-navegacion:focus { outline: none; }
 .item-navegacion:hover {
   background: rgba(176, 176, 176, 0.5);
