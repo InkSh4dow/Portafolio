@@ -111,7 +111,7 @@ h1 { font-size: 3.2em; line-height: 1.1; }
 }
 .panel-fondo {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.18s ease-in-out;
 }
 .panel-fondo.activo { opacity: 1; }
 .panel-fondo::before {
@@ -123,8 +123,6 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   background-size: auto;
   background-position: center;
   background-repeat: repeat;
-  transform: rotate(var(--bg-rotation, 0deg));
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
   width: 200%;
   height: 200%;
   left: -50%;
@@ -155,20 +153,38 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   justify-content: center;
   color: var(--text-primary);
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  transition: opacity 0.18s linear;
   padding: 2rem 1rem;
   overflow: auto;
   box-sizing: border-box;
   z-index: 0;
-  transform: translateY(40px) scale(0.98);
 }
 .panel-contenido.activo {
   opacity: 1;
   pointer-events: auto;
   z-index: 1;
-  transform: translateY(0) scale(1);
+  transition: opacity 0.18s linear;
 }
+
+/* Animación de entrada y salida */
+.panel-contenido.enter {
+  animation: panelFadeIn 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.panel-contenido.exit {
+  animation: panelFadeOut 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes panelFadeIn {
+  0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes panelFadeOut {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-30px) scale(0.98); }
+}
+
 .contenido-panel-interno {
   background: transparent;
   border-radius: var(--radius-m);

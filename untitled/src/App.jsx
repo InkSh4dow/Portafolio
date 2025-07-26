@@ -1,44 +1,21 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, memo } from 'react'
 import './App.css'
 import Dragon from './Dragon'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUser, FaFolderOpen, FaEnvelope, FaGithub, FaLinkedin, FaPaperPlane } from 'react-icons/fa'
 import { SiKotlin, SiCss3, SiJavascript, SiHtml5, SiAndroidstudio, SiGit, SiGithub, SiIntellijidea, SiWebstorm, SiAffinity } from 'react-icons/si'
 
-const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [currentText, setCurrentText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
+// Importa imágenes para mejor performance
+import contactoImg from './assets/contactoimg.jpg'
+import calculadoraIcono from './assets/CalculadoraIcono.png'
+import calculadoraUi from './assets/CalculadoraUi.jpeg'
+import notasIcono from './assets/NotasIcono.svg'
+import notasUi from './assets/NotasUi.png'
 
-  useEffect(() => {
-    const currentWord = words[currentWordIndex]
-    let timer
-    if (!isDeleting) {
-      if (currentText.length < currentWord.length) {
-        timer = setTimeout(() => setCurrentText(currentWord.slice(0, currentText.length + 1)), typeSpeed)
-      } else {
-        timer = setTimeout(() => setIsDeleting(true), pauseTime)
-      }
-    } else {
-      if (currentText.length > 0) {
-        timer = setTimeout(() => setCurrentText(currentText.slice(0, -1)), deleteSpeed)
-      } else {
-        setIsDeleting(false)
-        setCurrentWordIndex((prev) => (prev + 1) % words.length)
-      }
-    }
-    return () => clearTimeout(timer)
-  }, [currentText, isDeleting, currentWordIndex, words, typeSpeed, deleteSpeed, pauseTime])
-
-  return currentText
-}
-
-// Constantes de navegación y estilos
+// Datos estáticos memorizados fuera del componente
 const nombresSeccion = { inicio: 'Inicio', acerca: 'Acerca de mí', proyectos: 'Proyectos', contacto: 'Contacto' }
 const bordesSeccion = { inicio: 'borde-rojo', acerca: 'borde-azul', proyectos: 'borde-verde', contacto: 'borde-blanco' }
-const angulosSeccion = { inicio: '0deg', acerca: '45deg', proyectos: '90deg', contacto: '135deg' }
 
-// Datos de tecnologías
 const lenguajes = [
   { nombre: 'HTML', icono: <SiHtml5 />, className: 'color-html' },
   { nombre: 'CSS', icono: <SiCss3 />, className: 'color-css' },
@@ -56,12 +33,36 @@ const herramientas2 = [
   { nombre: 'Affinity Designer', icono: <SiAffinity />, className: 'color-affinity' },
 ]
 
-// Componente de inicio
-function InicioPanel({ setActivo }) {
+// Hook optimizado
+const useTypewriter = (words, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) => {
+  const [state, setState] = useState({ idx: 0, txt: '', del: false })
+  useEffect(() => {
+    const word = words[state.idx]
+    let timer
+    if (!state.del) {
+      if (state.txt.length < word.length) {
+        timer = setTimeout(() => setState(s => ({ ...s, txt: word.slice(0, s.txt.length + 1) })), typeSpeed)
+      } else {
+        timer = setTimeout(() => setState(s => ({ ...s, del: true })), pauseTime)
+      }
+    } else {
+      if (state.txt.length > 0) {
+        timer = setTimeout(() => setState(s => ({ ...s, txt: s.txt.slice(0, -1) })), deleteSpeed)
+      } else {
+        setState(s => ({ idx: (s.idx + 1) % words.length, txt: '', del: false }))
+      }
+    }
+    return () => clearTimeout(timer)
+  }, [state, words, typeSpeed, deleteSpeed, pauseTime])
+  return state.txt
+}
+
+// Componentes puros memoizados
+const InicioPanel = memo(function InicioPanel({ setActivo }) {
   const tituloAnimado = useTypewriter(['Hello World', 'Hola Mundo'], 100, 50, 1500)
   return (
     <div className="contenedor-inicio">
-      <img src="src/assets/contactoimg.jpg" alt="Imagen" className="imagen-inicio" />
+      <img src={contactoImg} alt="Imagen" className="imagen-inicio" />
       <div className="info-inicio">
         <h1 className="titulo-inicio-rgb">
           {tituloAnimado}
@@ -72,20 +73,18 @@ function InicioPanel({ setActivo }) {
         </div>
         <div className="botones-inicio">
           <button className="inicio-boton" onClick={() => setActivo('proyectos')}>Ver mis proyectos</button>
-          {/* <button className="inicio-boton">Descargar CV</button> */}
-          {/* EN DESARROLLO */}
         </div>
       </div>
     </div>
   )
-}
+})
 
-// Componente de tecnologías
-function TecnologiaMarquee({ items, reverse = false }) {
+const TecnologiaMarquee = memo(function TecnologiaMarquee({ items, reverse = false }) {
+  const techs = useMemo(() => [...items, ...items, ...items], [items])
   return (
     <div className={`tecnologias-marquesina${reverse ? ' marquesina-inversa' : ''}`}>
       <div className="marquesina-track">
-        {[...items, ...items, ...items].map((tech, idx) => (
+        {techs.map((tech, idx) => (
           <div className={`tecnologia-bloque ${tech.className}`} key={`${tech.nombre}-${idx}`}>
             {tech.icono}
             <span>{tech.nombre}</span>
@@ -94,10 +93,9 @@ function TecnologiaMarquee({ items, reverse = false }) {
       </div>
     </div>
   )
-}
+})
 
-// Componente acerca de mí
-function AcercaPanel() {
+const AcercaPanel = memo(function AcercaPanel() {
   const textoAnimado = useTypewriter(['Joseph Rodriguez', 'Desarrollador Web y Mobile'], 100, 50, 1500)
   return (
     <div className="contenedor-acerca">
@@ -126,10 +124,9 @@ function AcercaPanel() {
       </div>
     </div>
   )
-}
+})
 
-// Tarjeta de proyecto individual
-function ProyectoTarjeta({ icono, nombre, github, descripcion, imagen }) {
+const ProyectoTarjeta = memo(function ProyectoTarjeta({ icono, nombre, github, descripcion, imagen }) {
   return (
     <div className="tarjeta-proyecto-calculadora tarjeta-proyecto-blur">
       <div className="calcu-barra-superior">
@@ -154,10 +151,9 @@ function ProyectoTarjeta({ icono, nombre, github, descripcion, imagen }) {
       </div>
     </div>
   )
-}
+})
 
-// Tarjeta especial
-function TarjetaEspecial() {
+const TarjetaEspecial = memo(function TarjetaEspecial() {
   return (
     <div className="tarjeta-proyecto-especial tarjeta-proyecto-blur">
       <div className="contenido-proyecto-especial">
@@ -167,33 +163,31 @@ function TarjetaEspecial() {
       </div>
     </div>
   )
-}
+})
 
-// Panel de proyectos
-function ProyectosPanel() {
+const ProyectosPanel = memo(function ProyectosPanel() {
   return (
     <div className="grid-proyectos">
       <ProyectoTarjeta
-        icono="src/assets/CalculadoraIcono.png"
+        icono={calculadoraIcono}
         nombre="Calculadora Kotlin"
         github="https://github.com/InkSh4dow/AppCalculadora"
         descripcion="Una simple calculadora hecha en Kotlin."
-        imagen="src/assets/CalculadoraUi.jpeg"
+        imagen={calculadoraUi}
       />
       <ProyectoTarjeta
-        icono="src/assets/NotasIcono.svg"
+        icono={notasIcono}
         nombre="App de Notas"
         github="https://github.com/InkSh4dow/AppNotas"
         descripcion="Aplicación para tomar notas con persistencia local."
-        imagen="src/assets/NotasUi.png"
+        imagen={notasUi}
       />
       <TarjetaEspecial />
     </div>
   )
-}
+})
 
-// Panel de contacto
-function ContactoPanel() {
+const ContactoPanel = memo(function ContactoPanel() {
   const [showNotification, setShowNotification] = useState(false)
   const tituloAnimado = useTypewriter(['¡Creemos algo genial!'], 100, 50, 1500)
 
@@ -203,13 +197,13 @@ function ContactoPanel() {
         setShowNotification(true)
         setTimeout(() => setShowNotification(false), 3000)
       })
-      .catch(err => console.error('Error al copiar al portapapeles: ', err))
+      .catch(() => {})
   }
 
   return (
     <div className="contacto">
       <div className="contacto-imagen">
-        <img src="src/assets/contactoimg.jpg" alt="" />
+        <img src={contactoImg} alt="" />
       </div>
       <div className="contacto-info">
         <h2 className="titulo-inicio-rgb">
@@ -242,13 +236,9 @@ function ContactoPanel() {
       )}
     </div>
   )
-}
+})
 
-// Fondo animado de paneles
-function FondoPaneles({ activo }) {
-  useEffect(() => {
-    document.documentElement.style.setProperty('--bg-rotation', angulosSeccion[activo])
-  }, [activo])
+const FondoPaneles = memo(function FondoPaneles({ activo }) {
   return (
     <div className="contenedor-paneles">
       {Object.keys(nombresSeccion).map(seccionKey => (
@@ -259,16 +249,15 @@ function FondoPaneles({ activo }) {
       ))}
     </div>
   )
-}
+})
 
-// Navegación inferior
-function NavegacionInferior({ activo, setActivo }) {
-  const items = [
+const NavegacionInferior = memo(function NavegacionInferior({ activo, setActivo }) {
+  const items = useMemo(() => [
     { key: 'inicio', icon: <AiFillHome />, label: 'Inicio' },
     { key: 'acerca', icon: <FaUser />, label: 'Acerca de' },
     { key: 'proyectos', icon: <FaFolderOpen />, label: 'Proyectos' },
     { key: 'contacto', icon: <FaEnvelope />, label: 'Contacto' }
-  ]
+  ], [])
   return (
     <nav className="navegacion-inferior">
       <div className="navegacion-inferior-interna">
@@ -285,10 +274,25 @@ function NavegacionInferior({ activo, setActivo }) {
       </div>
     </nav>
   )
-}
+})
 
-// Contenido principal de la app
 function AppContent({ activo, setActivo }) {
+  // Animación de transición de panel
+  const [panelAnim, setPanelAnim] = useState('enter')
+  const [prevActivo, setPrevActivo] = useState(activo)
+
+  useEffect(() => {
+    if (activo !== prevActivo) {
+      setPanelAnim('exit')
+      const timeout = setTimeout(() => {
+        setPrevActivo(activo)
+        setPanelAnim('enter')
+      }, 280) // coincide con panelFadeOut
+      return () => clearTimeout(timeout)
+    }
+    // eslint-disable-next-line
+  }, [activo])
+
   const paneles = useMemo(() => ({
     inicio: <InicioPanel setActivo={setActivo} />,
     acerca: <AcercaPanel />,
@@ -302,25 +306,25 @@ function AppContent({ activo, setActivo }) {
         <h2>{nombresSeccion[activo]}</h2>
       </div>
       <div className="paneles-contenido-superior">
-        {Object.keys(nombresSeccion).map(seccionKey => (
-          <div
-            key={seccionKey}
-            className={`panel-contenido panel-${seccionKey} ${activo === seccionKey ? 'activo' : ''}`}
-          >
-            <div className="contenido-panel-interno">
-              {paneles[seccionKey]}
-            </div>
+        <div className={`panel-contenido panel-${prevActivo} activo ${panelAnim}`}>
+          <div className="contenido-panel-interno">
+            {paneles[prevActivo]}
           </div>
-        ))}
+        </div>
       </div>
       <NavegacionInferior activo={activo} setActivo={setActivo} />
     </>
   )
 }
 
-// App principal
 function App() {
-  const [activo, setActivo] = useState('inicio')
+  const [activo, setActivoRaw] = useState('inicio')
+
+  // Elimina useTransition, usa setActivoRaw directamente
+  const setActivo = (key) => {
+    setActivoRaw(key)
+  }
+
   return (
     <>
       <FondoPaneles activo={activo} />
