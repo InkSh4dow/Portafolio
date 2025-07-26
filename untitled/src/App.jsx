@@ -162,7 +162,7 @@ const ProyectosPanel = () => (
         <img src="src/assets/CalculadoraIcono.png" alt="Icono Calculadora" className="img-calculadora-icono" />
         <h3 className="calcu-nombre">Calculadora Kotlin</h3>
         <div className="calcu-barra-espaciador" />
-        <a
+          <a
           href="https://github.com/InkSh4dow/AppCalculadora"
           className="enlace-proyecto-calculadora"
           title="Ver en GitHub"
@@ -186,11 +186,11 @@ const ProyectosPanel = () => (
     {/* Tarjeta App de Notas */}
     <div className="tarjeta-proyecto-notas tarjeta-proyecto-blur">
       <div className="calcu-barra-superior">
-        <img src="https://via.placeholder.com/32x32" alt="Icono Notas" className="img-calculadora-icono" />
+        <img src="src/assets/NotasIcono.svg" alt="Icono Notas" className="img-calculadora-icono" />
         <h3 className="calcu-nombre">App de Notas</h3>
         <div className="calcu-barra-espaciador" />
         <a
-          href="#"
+          href="https://github.com/InkSh4dow/AppNotas"
           className="enlace-proyecto-notas"
           title="Ver en GitHub"
           target="_blank"
@@ -206,7 +206,7 @@ const ProyectosPanel = () => (
           </div>
         </div>
         <div className="calcu-imagen">
-          <img src="https://via.placeholder.com/150x100" alt="App de Notas" className="img-calculadora-ui" />
+          <img src="src/assets/NotasUi.png" alt="App de Notas" className="img-calculadora-ui" />
         </div>
       </div>
     </div>
@@ -215,12 +215,9 @@ const ProyectosPanel = () => (
       <div className="contenido-proyecto-especial">
         <div className="especial-info">
           <p className="especial-descripcion">
-            Desarrollando algo especial
+            Creando algo unico
           </p>
         </div>
-      </div>
-      <div className="especial-barra-animada especial-barra-verde">
-        <div className="especial-barra-progreso"></div>
       </div>
     </div>
   </div>

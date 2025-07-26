@@ -970,7 +970,7 @@ h1 {
   padding: 0.7rem;
   border-radius: var(--radius-m);
   text-align: left;
-  width: 300px;
+  width: 175px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -1020,44 +1020,12 @@ h1 {
   display: none;
 }
 
-/* Tarjeta Especial - elemento creativo */
-.especial-creativo {
-  display: none;
-}
-
-/* Barra animada especial en escala de verdes */
-.especial-barra-animada.especial-barra-verde {
-  width: 80%;
-  height: 8px;
-  background: #222;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  margin: 0.7rem auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.especial-barra-progreso {
-  height: 100%;
-  width: 0;
-  background: var(--grad-verde);
-  animation: especial-barra-cargar 2.5s infinite linear;
-  border-radius: 8px;
-}
-@keyframes especial-barra-cargar {
-  0% { width: 0; }
-  50% { width: 100%; }
-  100% { width: 0; }
-}
-
 /* Tarjetas de proyectos y especial: borde gradiente verde al hover */
 .tarjeta-proyecto-calculadora:hover,
 .tarjeta-proyecto-notas:hover,
 .tarjeta-proyecto-especial:hover {
   border: 1px solid #32cd32;
   border-radius: var(--radius-m);
-  box-shadow: 0 8px 32px rgba(80,80,80,0.18);
   z-index: 2;
   transition: border-color 0.3s, border-width 0.3s, box-shadow 0.2s, border-radius 0.3s;
 }
