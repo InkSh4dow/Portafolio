@@ -799,14 +799,7 @@ h1 { font-size: 3.2em; line-height: 1.1; }
 }
 @media (max-width: 480px) {
   .titulo-flotante {
-    top: 0.7rem;
-    left: 0.7rem;
-    padding: 1px;
-  }
-  .titulo-flotante h2 {
-    font-size: 1.1rem;
-    padding: 0.3rem 0.7rem;
-    border-radius: 10px;
+    display: none;
   }
   .paneles-contenido-superior {
     align-items: flex-start;
@@ -816,6 +809,8 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   .panel-contenido {
     padding: 0.5rem 0.2rem;
     min-height: 100vh;
+    padding-top: 3.2rem;
+    padding-bottom: 7.5rem; /* Aún más arriba de la barra de navegación */
   }
   .contenido-panel-interno {
     padding: 0.5rem;
@@ -825,7 +820,7 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   .contenedor-inicio {
     flex-direction: column;
     gap: 1.2rem;
-    padding: 0 1.1rem; /* Más separación lateral */
+    padding: 0 1.1rem;
     max-width: 98vw;
   }
   .imagen-inicio {
@@ -852,7 +847,7 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   .contenedor-acerca {
     flex-direction: column;
     gap: 1rem;
-    padding: 0 1.1rem; /* Más separación lateral */
+    padding: 0 1.1rem;
     max-width: 98vw;
   }
   .columna-texto,
@@ -946,7 +941,90 @@ h1 { font-size: 3.2em; line-height: 1.1; }
     font-size: 1.1rem;
   }
   .etiqueta-navegacion {
-    font-size: 0.95em;
-    margin-left: 0.3rem;
+    font-size: 0.75em;
+    margin-left: 0.2rem;
+    max-width: 0;
+    opacity: 0;
+    display: inline;
+    transition: none;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .item-navegacion.activo .etiqueta-navegacion {
+    max-width: 60px;
+    opacity: 1;
+    font-size: 0.75em;
+    margin-left: 0.2rem;
+    transition: none;
+  }
+}
+
+/* Proyectos: tarjetas en columna y ancho completo */
+@media (max-width: 480px) {
+  .grid-proyectos {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 0.5rem;
+    min-width: 0;
+    min-height: unset;
+    overflow-x: unset;
+    width: 100%;
+    align-items: stretch;
+  }
+  .tarjeta-proyecto-calculadora,
+  .tarjeta-proyecto-notas,
+  .tarjeta-proyecto-especial {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .contenido-proyecto-calculadora,
+  .contenido-proyecto-especial {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+  }
+  .calcu-info,
+  .calcu-info-izquierda {
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .calcu-imagen {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
+  .img-calculadora-ui {
+    width: 60%;
+    max-width: 110px;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  html, body, #root {
+    font-size: 1.09em;
+  }
+
+  .etiqueta-navegacion {
+    font-size: 0.75em;
+    margin-left: 0.2rem;
+    max-width: 0;
+    opacity: 0;
+    display: inline;
+    transition: none;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .item-navegacion.activo .etiqueta-navegacion {
+    max-width: 60px;
+    opacity: 1;
+    font-size: 0.75em;
+    margin-left: 0.2rem;
+    transition: none;
   }
 }
