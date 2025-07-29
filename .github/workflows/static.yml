@@ -34,8 +34,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Puedes usar '18', '20' o la versión que uses. '20' es una buena opción actual.
-          cache: 'npm' # Habilita el caché para las dependencias de npm, acelera futuras ejecuciones
-          # cache-dependency-path: './untitled/package-lock.json' # Opcional: Si el cache falla, puedes probar esto.
+          # cache: 'npm' # <--- ¡COMENTA O ELIMINA ESTA LÍNEA PARA DESACTIVAR EL CACHE!
+          # cache-dependency-path: './untitled/package-lock.json' # Si el cache falla, puedes probar esto.
 
       - name: Install dependencies # Instala las dependencias del proyecto (ejecuta npm install)
         run: npm install
