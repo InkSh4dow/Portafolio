@@ -806,11 +806,18 @@ h1 { font-size: 3.2em; line-height: 1.1; }
     justify-content: flex-start;
     padding-top: 0.5rem;
   }
+  /* Solo aplica el padding extra a panel-acerca y panel-proyectos */
+  .panel-contenido.panel-acerca,
+  .panel-contenido.panel-proyectos {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+  }
   .panel-contenido {
     padding: 0.5rem 0.2rem;
     min-height: 100vh;
-    padding-top: 3.2rem;
-    padding-bottom: 7.5rem; /* Aún más arriba de la barra de navegación */
+    /* Quita el padding extra aquí */
+    /* padding-top: 7.5rem; */
+    /* padding-bottom: 7.5rem; */
   }
   .contenido-panel-interno {
     padding: 0.5rem;
