@@ -824,6 +824,14 @@ h1 { font-size: 3.2em; line-height: 1.1; }
     min-width: unset;
     max-height: 100vh;
   }
+  body, html {
+    overflow: hidden !important;
+    height: 100vh;
+  }
+  #root {
+    height: 100vh;
+    overflow: hidden !important;
+  }
   .contenedor-inicio {
     flex-direction: column;
     gap: 1.2rem;
@@ -1018,8 +1026,8 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   }
 
   .etiqueta-navegacion {
-    font-size: 0.75em;
-    margin-left: 0.2rem;
+    font-size: 0.55em;
+    margin-left: 0.18rem;
     max-width: 0;
     opacity: 0;
     display: inline;
@@ -1030,8 +1038,22 @@ h1 { font-size: 3.2em; line-height: 1.1; }
   .item-navegacion.activo .etiqueta-navegacion {
     max-width: 60px;
     opacity: 1;
-    font-size: 0.75em;
-    margin-left: 0.2rem;
+    font-size: 0.55em;
+    margin-left: 0.18rem;
     transition: none;
+  }
+  /* Oculta la etiqueta activa solo en la primera carga */
+  body.primera-carga .item-navegacion.activo .etiqueta-navegacion {
+    max-width: 0 !important;
+    opacity: 0 !important;
+  }
+
+  .panel-contenido.panel-inicio,
+  .panel-contenido.panel-contacto {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+    touch-action: none;
+    height: 100vh;
+    max-height: 100vh;
   }
 }

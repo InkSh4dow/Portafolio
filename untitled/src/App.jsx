@@ -332,6 +332,15 @@ function App() {
     setActivoRaw(key)
   }
 
+  // Oculta la etiqueta activa solo en la primera carga
+  useEffect(() => {
+    document.body.classList.add('primera-carga')
+    const t = setTimeout(() => {
+      document.body.classList.remove('primera-carga')
+    }, 1000)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <>
       <FondoPaneles activo={activo} />
