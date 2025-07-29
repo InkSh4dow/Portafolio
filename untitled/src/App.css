@@ -1042,10 +1042,10 @@ h1 { font-size: 3.2em; line-height: 1.1; }
     margin-left: 0.18rem;
     transition: none;
   }
-  /* Oculta la etiqueta activa solo en la primera carga */
+  /* Oculta la etiqueta activa solo en la primera carga (invisible, no solo max-width) */
   body.primera-carga .item-navegacion.activo .etiqueta-navegacion {
-    max-width: 0 !important;
     opacity: 0 !important;
+    pointer-events: none;
   }
 
   .panel-contenido.panel-inicio,
